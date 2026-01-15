@@ -2,7 +2,7 @@ import { Product, Treatment, FAQItem, TabData, TabKey } from './types';
 
 export const NAV_LINKS = [
   { label: 'About', href: '#about' },
-  { label: 'Programs', href: '#nutrition' },
+  { label: 'Programs', href: '#discover' },
   { label: 'Store', href: '#products' },
   { label: 'Success Stories', href: '#testimonial' },
   { label: 'FAQ', href: '#faq' },

@@ -155,7 +155,7 @@ const Products: React.FC = () => {
   };
 
   return (
-    <section className="py-16 md:py-32 border-t border-black/5 bg-[#f6f7f7]" id="products">
+    <section className="py-16 md:py-32 border-t border-black/5 bg-[#f6f7f7] scroll-mt-20 md:scroll-mt-32" id="products">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         
         {/* Header Row */}
@@ -174,24 +174,24 @@ const Products: React.FC = () => {
              {/* Simple Category Pills - Hidden on mobile to save space or could be scrolling */}
              <div className="hidden lg:flex gap-2">
                {CATEGORIES.slice(0, 3).map(cat => (
-                 <span key={cat} className="px-4 py-2 rounded-full border border-black/10 text-[13px] font-medium text-ink/60 hover:bg-white hover:text-ink transition-colors cursor-pointer">
+                 <span key={cat} className="px-4 py-2 rounded-full border border-black/10 text-[13px] font-medium text-ink/60 hover:bg-white hover:text-ink transition-colors cursor-pointer hover:shadow-sm">
                    {cat}
                  </span>
                ))}
-               <span className="px-4 py-2 rounded-full border border-black/10 text-[13px] font-medium text-ink/60">+3</span>
+               <span className="px-4 py-2 rounded-full border border-black/10 text-[13px] font-medium text-ink/60 hover:bg-white hover:text-ink transition-colors cursor-pointer">+3</span>
              </div>
 
              {/* Navigation Arrows */}
              <div className="flex gap-3 ml-auto md:ml-0">
                 <button 
                   onClick={() => handlePageChange('prev')}
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 bg-white flex items-center justify-center hover:bg-[#1a2e29] hover:text-white transition-all active:scale-95"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 bg-white flex items-center justify-center hover:bg-[#1a2e29] hover:text-white transition-all active:scale-95 shadow-sm"
                 >
                    <ArrowLeft className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]" />
                 </button>
                 <button 
                   onClick={() => handlePageChange('next')}
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 bg-white flex items-center justify-center hover:bg-[#1a2e29] hover:text-white transition-all active:scale-95"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 bg-white flex items-center justify-center hover:bg-[#1a2e29] hover:text-white transition-all active:scale-95 shadow-sm"
                 >
                    <ArrowRight className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]" />
                 </button>
@@ -204,7 +204,7 @@ const Products: React.FC = () => {
         <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 transition-opacity duration-300 ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
            
            {/* Item 0: FEATURED (Large, spans 2 cols & 2 rows on Desktop) */}
-           <div className="lg:col-span-2 lg:row-span-2 relative h-[420px] lg:h-auto rounded-[24px] md:rounded-[32px] overflow-hidden bg-white group cursor-pointer shadow-sm hover:shadow-card transition-all">
+           <div className="lg:col-span-2 lg:row-span-2 relative h-[420px] lg:h-auto rounded-[24px] md:rounded-[32px] overflow-hidden bg-white group cursor-pointer shadow-card hover:shadow-2xl transition-all duration-500">
               <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                 style={{ backgroundImage: `url('${currentProducts[0].image}')` }}
@@ -228,7 +228,7 @@ const Products: React.FC = () => {
                     <p className="text-white/80 text-[15px] mb-6 pt-2 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
                        {currentProducts[0].desc}
                     </p>
-                    <button className="w-full py-4 bg-white text-[#1a2e29] font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#cfe7a7] transition-colors">
+                    <button className="w-full py-4 bg-white text-[#1a2e29] font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#cfe7a7] transition-colors shadow-lg active:scale-95">
                        <ShoppingBag size={18} />
                        Add to Cart
                     </button>
@@ -238,7 +238,7 @@ const Products: React.FC = () => {
 
            {/* Items 1-4: Standard Grid Items */}
            {currentProducts.slice(1).map((product, idx) => (
-             <div key={idx} className="relative aspect-[4/5] md:aspect-auto md:h-[320px] rounded-[24px] overflow-hidden bg-white p-4 flex flex-col justify-between group cursor-pointer shadow-sm hover:shadow-card transition-all">
+             <div key={idx} className="relative aspect-[4/5] md:aspect-auto md:h-[320px] rounded-[24px] overflow-hidden bg-white p-4 flex flex-col justify-between group cursor-pointer shadow-sm hover:shadow-card hover:-translate-y-1 transition-all duration-300">
                 
                 {/* Image Area */}
                 <div className="relative w-full h-[65%] rounded-[18px] overflow-hidden bg-[#f4f4f4] mb-4">
@@ -247,7 +247,7 @@ const Products: React.FC = () => {
                       style={{ backgroundImage: `url('${product.image}')` }}
                    />
                    {/* Add Button Overlay */}
-                   <button className="absolute bottom-3 right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center text-ink shadow-md translate-y-12 group-hover:translate-y-0 transition-transform duration-300">
+                   <button className="absolute bottom-3 right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center text-ink shadow-md translate-y-12 group-hover:translate-y-0 transition-transform duration-300 hover:bg-[#1a2e29] hover:text-white">
                       <Plus size={20} />
                    </button>
                 </div>

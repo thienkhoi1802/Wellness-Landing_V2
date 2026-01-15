@@ -10,7 +10,7 @@ const FAQ: React.FC = () => {
   };
 
   return (
-    <section className="py-16 md:py-32 border-t border-black/5" id="faq">
+    <section className="py-16 md:py-32 border-t border-black/5 scroll-mt-20 md:scroll-mt-32" id="faq">
        <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         <div className="flex justify-between items-center text-ink-muted text-xs tracking-widest uppercase mb-12 md:mb-16 border-b border-black/5 pb-4">
           <div>// FAQ</div>
@@ -56,13 +56,13 @@ const FAQ: React.FC = () => {
                        <h3 className={`text-[18px] md:text-[28px] font-normal leading-tight max-w-[90%] transition-colors ${isOpen ? 'text-ink' : 'text-ink/60 group-hover:text-ink/80'}`}>
                          {item.question}
                        </h3>
-                       <div className={`shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center text-ink/60 transition-all duration-300 group-hover:border-black/40 ${isOpen ? 'rotate-180 border-black/40' : ''}`}>
+                       <div className={`shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center text-ink/60 transition-all duration-300 group-hover:border-black/40 ${isOpen ? 'rotate-180 border-black/40 bg-black/5' : ''}`}>
                           {isOpen ? <Minus className="w-[18px] h-[18px] md:w-[22px] md:h-[22px]" strokeWidth={1.5} /> : <Plus className="w-[18px] h-[18px] md:w-[22px] md:h-[22px]" strokeWidth={1.5} />}
                        </div>
                     </div>
                     
                     <div 
-                      className={`grid transition-all duration-500 ease-in-out ${
+                      className={`grid transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
                         isOpen ? 'grid-rows-[1fr] opacity-100 mb-6 md:mb-10' : 'grid-rows-[0fr] opacity-0'
                       }`}
                     >

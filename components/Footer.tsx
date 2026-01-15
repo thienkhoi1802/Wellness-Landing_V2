@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { NAV_LINKS } from '../constants';
 
 const Footer: React.FC = () => {
   return (
@@ -15,7 +16,7 @@ const Footer: React.FC = () => {
                 Begin Your Journey Into Inner Serenity.
               </h2>
               
-              <button className="w-fit bg-white rounded-full p-1.5 pl-6 pr-1.5 flex items-center gap-6 group hover:bg-gray-100 transition-colors">
+              <button className="w-fit bg-white rounded-full p-1.5 pl-6 pr-1.5 flex items-center gap-6 group hover:bg-gray-100 transition-colors shadow-lg active:scale-95">
                  <span className="text-[#1a2e29] font-bold text-[15px] tracking-tight">Book now</span>
                  <div className="w-10 h-10 rounded-full bg-[#2e453e] text-white flex items-center justify-center group-hover:scale-105 transition-transform">
                     <ArrowRight size={18} />
@@ -93,13 +94,13 @@ const Footer: React.FC = () => {
            
            {/* Navigation Links */}
            <div className="flex flex-wrap gap-x-8 gap-y-4 md:gap-12">
-              {['About', 'Treatment', 'Products', 'Testimonial', 'FAQ'].map((item) => (
+              {NAV_LINKS.map((item) => (
                  <a 
-                   key={item} 
-                   href={`#${item.toLowerCase()}`}
+                   key={item.label} 
+                   href={item.href}
                    className="text-[14px] md:text-[15px] text-white/60 hover:text-white transition-colors"
                  >
-                    {item}
+                    {item.label}
                  </a>
               ))}
            </div>
@@ -124,7 +125,7 @@ const Footer: React.FC = () => {
         {/* Bottom Section: Copyright & Legal */}
         <div className="border-t border-white/10 pt-8 md:pt-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-[10px] md:text-[11px] text-white/40 uppercase tracking-widest">
            <div>
-              © 2026 © 2024 ASSEMBLY MOVEMENT LTD. ALL RIGHTS RESERVED.
+              © 2026 ASSEMBLY MOVEMENT LTD. ALL RIGHTS RESERVED.
            </div>
            <div className="flex flex-col md:flex-row gap-4 md:gap-8">
               <a href="#" className="hover:text-white transition-colors">TERMS & CONDITIONS</a>

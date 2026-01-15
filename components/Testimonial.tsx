@@ -61,18 +61,21 @@ const Testimonial: React.FC = () => {
   };
 
   return (
-    <section className="py-16 md:py-24" id="testimonial">
+    <section className="py-16 md:py-24 scroll-mt-20 md:scroll-mt-32" id="testimonial">
       {/* Container with Dark Green Background and Rounded Corners */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        <div className="bg-[#1a2e29] rounded-[32px] md:rounded-[48px] p-6 md:p-16 text-white relative">
+        <div className="bg-[#1a2e29] rounded-[32px] md:rounded-[48px] p-6 md:p-16 text-white relative shadow-2xl overflow-hidden">
             
+            {/* Background Texture */}
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
             {/* Header Row */}
-            <div className="flex justify-between items-center text-white/40 text-[10px] md:text-xs tracking-widest uppercase mb-8 md:mb-20">
+            <div className="flex justify-between items-center text-white/40 text-[10px] md:text-xs tracking-widest uppercase mb-8 md:mb-20 relative z-10">
             <div>// SUCCESS STORIES</div>
             <div>[ 06 ]</div>
             </div>
 
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12 mb-10 md:mb-16">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12 mb-10 md:mb-16 relative z-10">
             <h2 className="text-[28px] md:text-[52px] leading-[1.05] tracking-[-1px] font-normal text-white max-w-[620px]">
                 Real results from our dedicated athletes
             </h2>
@@ -94,10 +97,10 @@ const Testimonial: React.FC = () => {
             </div>
 
             {/* Content Area */}
-            <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] xl:grid-cols-[420px_1fr] gap-6 md:gap-8 items-stretch min-h-[400px]">
+            <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] xl:grid-cols-[420px_1fr] gap-6 md:gap-8 items-stretch min-h-[400px] relative z-10">
             
             {/* Left: Portrait Image */}
-            <div className={`relative rounded-[24px] md:rounded-[32px] overflow-hidden bg-[#111] h-[280px] lg:h-auto transition-opacity duration-500 ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
+            <div className={`relative rounded-[24px] md:rounded-[32px] overflow-hidden bg-[#111] h-[280px] lg:h-auto transition-opacity duration-500 shadow-lg ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
                 <div 
                 className="absolute inset-0 bg-cover bg-center"
                 style={{ backgroundImage: `url('${current.image}')` }}
@@ -106,10 +109,10 @@ const Testimonial: React.FC = () => {
             </div>
 
             {/* Right: Quote Card */}
-            <div className={`relative rounded-[24px] md:rounded-[32px] bg-[#e9f5d3] p-8 md:p-16 flex flex-col justify-between transition-all duration-500 transform ${isAnimating ? 'opacity-80 translate-x-4' : 'opacity-100 translate-x-0'}`}>
+            <div className={`relative rounded-[24px] md:rounded-[32px] bg-[#e9f5d3] p-8 md:p-16 flex flex-col justify-between transition-all duration-500 transform shadow-lg ${isAnimating ? 'opacity-80 translate-x-4' : 'opacity-100 translate-x-0'}`}>
                 
                 <div className="flex flex-col gap-6 md:gap-8">
-                <Quote className="text-[#1a2e29] fill-[#1a2e29] w-8 h-8 md:w-12 md:h-12" />
+                <Quote className="text-[#1a2e29] fill-[#1a2e29] w-8 h-8 md:w-12 md:h-12 opacity-20" />
                 <p className="text-[20px] md:text-[40px] leading-[1.3] md:leading-[1.15] tracking-[-0.5px] text-[#1a2e29] font-normal">
                     {current.quote}”
                 </p>
@@ -130,7 +133,7 @@ const Testimonial: React.FC = () => {
             </div>
 
             {/* Counter */}
-            <div className="mt-6 md:absolute md:bottom-16 md:left-16 text-white/40 font-medium text-base md:text-lg tracking-widest text-center md:text-left">
+            <div className="mt-6 md:absolute md:bottom-16 md:left-16 text-white/40 font-medium text-base md:text-lg tracking-widest text-center md:text-left z-10">
             {currentIndex + 1} <span className="text-white/20">/</span> {total}
             </div>
         </div>

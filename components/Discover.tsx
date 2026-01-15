@@ -45,7 +45,7 @@ const Discover: React.FC = () => {
   const activeItem = TREATMENTS_DATA.find(t => t.id === activeId) || TREATMENTS_DATA[0];
 
   return (
-    <section className="py-16 md:py-32 border-t border-black/5" id="discover">
+    <section className="py-16 md:py-32 border-t border-black/5 scroll-mt-20 md:scroll-mt-32" id="discover">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         
         {/* Header Label */}
@@ -63,8 +63,8 @@ const Discover: React.FC = () => {
           <div className="flex gap-8 items-center max-w-[400px]">
              {/* Decorative Circles */}
              <div className="hidden md:flex -space-x-4">
-                <div className="w-12 h-12 rounded-full border border-black/20"></div>
-                <div className="w-12 h-12 rounded-full border border-black/20"></div>
+                <div className="w-12 h-12 rounded-full border border-black/20 bg-white"></div>
+                <div className="w-12 h-12 rounded-full border border-black/20 bg-white/50 backdrop-blur-sm"></div>
              </div>
              <p className="text-ink/60 text-[15px] md:text-[16px] leading-relaxed">
                “ Join thousands achieving their dream physique through dedicated training. ”
@@ -76,7 +76,7 @@ const Discover: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-start">
           
           {/* Left Column: Hero Image & Data Card (Hidden on Mobile) */}
-          <div className="hidden lg:block relative w-full aspect-[3/4] lg:h-[720px] lg:aspect-auto rounded-[32px] overflow-hidden bg-[#f0f0f0]">
+          <div className="hidden lg:block relative w-full aspect-[3/4] lg:h-[720px] lg:aspect-auto rounded-[32px] overflow-hidden bg-[#f0f0f0] shadow-2xl">
              {/* Background Image */}
              <div 
                className="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out"
@@ -84,7 +84,7 @@ const Discover: React.FC = () => {
              />
              
              {/* Floating Data Card */}
-             <div className="absolute bottom-8 left-8 right-8 bg-white rounded-[24px] p-8 shadow-soft animate-fade-in-up">
+             <div className="absolute bottom-8 left-8 right-8 bg-white/95 backdrop-blur-xl rounded-[24px] p-8 shadow-soft animate-fade-in-up">
                 <div className="flex justify-between items-start mb-8">
                    <div>
                       <span className="text-[10px] text-ink/40 font-bold tracking-widest uppercase block mb-2">START FROM</span>
@@ -94,7 +94,7 @@ const Discover: React.FC = () => {
                    {/* Mini Graph Visualization */}
                    <div className="relative w-[140px] h-[60px]">
                       {/* Floating Tag */}
-                      <div className="absolute -top-3 right-8 bg-[#1a2e29] text-white text-[10px] font-bold px-2.5 py-1 rounded-md z-10">
+                      <div className="absolute -top-3 right-8 bg-[#1a2e29] text-white text-[10px] font-bold px-2.5 py-1 rounded-md z-10 shadow-md">
                         85 <span className="text-[8px] font-normal opacity-70">KG</span>
                       </div>
                       <svg viewBox="0 0 140 60" className="w-full h-full overflow-visible">
@@ -142,20 +142,20 @@ const Discover: React.FC = () => {
                   key={item.id} 
                   onClick={() => setActiveId(item.id)}
                   className={`group border-b border-black/10 transition-all duration-500 cursor-pointer ${
-                    isActive ? 'pb-8 pt-6 md:pb-12 md:pt-8 opacity-100' : 'py-6 md:py-8 opacity-40 hover:opacity-70'
+                    isActive ? 'pb-8 pt-6 md:pb-12 md:pt-8 opacity-100' : 'py-6 md:py-8 opacity-40 hover:opacity-100'
                   }`}
                 >
                   <div className="flex items-baseline gap-6 md:gap-12">
                      {/* Number Circle */}
                      <div className={`w-8 h-8 md:w-12 md:h-12 rounded-full border flex items-center justify-center text-xs md:text-sm transition-colors flex-shrink-0 ${
-                       isActive ? 'border-ink text-ink font-medium' : 'border-black/20 text-ink/50'
+                       isActive ? 'border-ink text-ink font-medium bg-brand-green/20' : 'border-black/20 text-ink/50 group-hover:border-black/40'
                      }`}>
                         {number}
                      </div>
 
                      <div className="flex-1">
                         <h3 className={`text-[24px] md:text-[36px] font-normal leading-tight tracking-[-0.5px] transition-all mb-4 ${
-                          isActive ? 'text-ink' : 'text-ink'
+                          isActive ? 'text-ink' : 'text-ink group-hover:translate-x-2'
                         }`}>
                           {item.name}
                         </h3>
@@ -169,7 +169,7 @@ const Discover: React.FC = () => {
                               </p>
                               
                               <div className="flex flex-wrap items-center gap-6 md:gap-10">
-                                 <button className="flex items-center gap-3 bg-[#1a2e29] text-white pl-6 pr-2 py-2 rounded-full hover:bg-black transition-colors active:scale-95 group/btn">
+                                 <button className="flex items-center gap-3 bg-[#1a2e29] text-white pl-6 pr-2 py-2 rounded-full hover:bg-black transition-colors active:scale-95 group/btn shadow-lg">
                                     <span className="text-[13px] font-medium tracking-wide">Join now</span>
                                     <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-[#1a2e29] group-hover/btn:scale-105 transition-transform">
                                       <ArrowRight size={16} />

@@ -8,7 +8,7 @@ const TAGS = [
 
 const Nutrition: React.FC = () => {
   return (
-    <section className="py-16 md:py-32 border-t border-black/5" id="nutrition">
+    <section className="py-16 md:py-32 border-t border-black/5 scroll-mt-20 md:scroll-mt-32" id="nutrition">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         
         {/* Header Label */}
@@ -31,7 +31,7 @@ const Nutrition: React.FC = () => {
                 {TAGS.map((tag) => (
                   <span 
                     key={tag} 
-                    className="px-4 py-2 md:px-5 md:py-2.5 rounded-xl bg-white border border-black/5 text-[12px] md:text-[13px] text-ink/70 font-medium hover:bg-[#f4f4f4] transition-colors cursor-default"
+                    className="px-4 py-2 md:px-5 md:py-2.5 rounded-xl bg-white border border-black/5 text-[12px] md:text-[13px] text-ink/70 font-medium hover:bg-[#f4f4f4] transition-colors cursor-default shadow-sm"
                   >
                     {tag}
                   </span>
@@ -40,7 +40,7 @@ const Nutrition: React.FC = () => {
             </div>
 
             {/* Expert Card */}
-            <div className="relative rounded-[24px] md:rounded-[32px] overflow-hidden aspect-[4/5] bg-[#e0e0e0] group">
+            <div className="relative rounded-[24px] md:rounded-[32px] overflow-hidden aspect-[4/5] bg-[#e0e0e0] group shadow-card hover:shadow-soft transition-all duration-500">
                <div 
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                   style={{ backgroundImage: "url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=800&h=1000')" }}
@@ -49,7 +49,7 @@ const Nutrition: React.FC = () => {
 
                {/* Card Content */}
                <div className="absolute inset-0 p-6 md:p-10 flex flex-col justify-end text-white">
-                  <div className="mb-6 md:mb-8">
+                  <div className="mb-6 md:mb-8 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
                      <h3 className="text-[28px] md:text-[32px] font-normal leading-tight mb-2">Coach Mike T.</h3>
                      <p className="text-white/60 text-[14px] md:text-[15px] mb-4">Head Performance Coach</p>
                      <div className="flex items-center gap-2">
@@ -69,12 +69,12 @@ const Nutrition: React.FC = () => {
                            ONLY 5 SLOTS<br/>LEFT THIS MONTH
                         </div>
                         <div className="w-full max-w-[240px] h-2 bg-white/20 rounded-full overflow-hidden">
-                           <div className="h-full w-[80%] bg-[#cfe7a7] rounded-full"></div>
+                           <div className="h-full w-[80%] bg-[#cfe7a7] rounded-full shadow-[0_0_8px_#cfe7a7]"></div>
                         </div>
                      </div>
 
                      {/* CTA Button */}
-                     <button className="mt-2 w-full bg-[#1a2e29] backdrop-blur-md border border-white/10 text-white rounded-[20px] p-2 pl-6 pr-2 flex items-center justify-between hover:bg-[#152521] transition-colors group/btn">
+                     <button className="mt-2 w-full bg-[#1a2e29]/90 backdrop-blur-md border border-white/10 text-white rounded-[20px] p-2 pl-6 pr-2 flex items-center justify-between hover:bg-[#152521] transition-all group/btn shadow-lg">
                         <span className="font-medium text-[14px] tracking-wide">Join Team</span>
                         <div className="w-10 h-10 rounded-[14px] bg-white text-[#1a2e29] flex items-center justify-center transition-transform group-hover/btn:translate-x-1">
                            <ArrowRight size={18} />
@@ -86,7 +86,7 @@ const Nutrition: React.FC = () => {
           </div>
 
           {/* RIGHT COLUMN */}
-          <div className="order-1 lg:order-2 relative rounded-[24px] md:rounded-[32px] overflow-hidden h-[500px] lg:h-full bg-[#f0efe9] group">
+          <div className="order-1 lg:order-2 relative rounded-[24px] md:rounded-[32px] overflow-hidden h-[500px] lg:h-full bg-[#f0efe9] group shadow-card">
              {/* Food Hero Image */}
              <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
@@ -95,7 +95,7 @@ const Nutrition: React.FC = () => {
              <div className="absolute inset-0 bg-black/10" />
 
              {/* Floating Data Widget */}
-             <div className="absolute bottom-6 left-6 right-6 md:top-12 md:bottom-auto md:left-auto md:right-12 md:w-[360px] bg-white/95 backdrop-blur-xl rounded-[20px] md:rounded-[24px] p-6 md:p-8 shadow-soft animate-fade-in">
+             <div className="absolute bottom-6 left-6 right-6 md:top-12 md:bottom-auto md:left-auto md:right-12 md:w-[360px] bg-white/95 backdrop-blur-xl rounded-[20px] md:rounded-[24px] p-6 md:p-8 shadow-soft animate-fade-in hover:scale-[1.02] transition-transform duration-300">
                 
                 {/* Stats Row */}
                 <div className="grid grid-cols-2 gap-4 md:gap-6 mb-8 md:mb-10">
@@ -121,7 +121,7 @@ const Nutrition: React.FC = () => {
                       {[60, 70, 50, 80, 65, 90, 75, 40, 30, 45, 55, 60, 40, 50, 30, 40, 35, 45, 50, 40].map((height, i) => (
                          <div 
                            key={i} 
-                           className={`w-full rounded-full transition-all duration-500 ${i < 12 ? 'bg-[#3b5c4f]' : 'bg-[#e0e0e0]'}`}
+                           className={`w-full rounded-full transition-all duration-500 hover:opacity-80 ${i < 12 ? 'bg-[#3b5c4f]' : 'bg-[#e0e0e0]'}`}
                            style={{ height: `${height}%` }}
                          />
                       ))}
