@@ -8,6 +8,7 @@ import Testimonial from './components/Testimonial';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import ContactModal from './components/ContactModal';
+import ScrollToTop from './components/ScrollToTop';
 import { ContactProvider } from './context/ContactContext';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         </main>
         <Footer />
         <ContactModal />
+        <ScrollToTop />
       </div>
     </ContactProvider>
   );
