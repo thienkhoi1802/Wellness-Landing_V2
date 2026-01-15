@@ -2,69 +2,69 @@ import { Product, Treatment, FAQItem, TabData, TabKey } from './types';
 
 export const NAV_LINKS = [
   { label: 'About', href: '#about' },
-  { label: 'Treatment', href: '#nutrition' },
-  { label: 'Products', href: '#products' },
-  { label: 'Testimonial', href: '#testimonial' },
+  { label: 'Programs', href: '#nutrition' },
+  { label: 'Store', href: '#products' },
+  { label: 'Success Stories', href: '#testimonial' },
   { label: 'FAQ', href: '#faq' },
 ];
 
 export const PRODUCTS: Product[] = [
   { 
     id: 'p1',
-    name: "Dawn", 
-    desc: "Helps bring your natural rhythm into balance with gentle daily support.", 
+    name: "Whey Gold", 
+    desc: "Premium isolate protein for maximum muscle recovery.", 
     rate: "5.0", 
-    src: "https://picsum.photos/1000/600?random=10" 
+    src: "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?auto=format&fit=crop&q=80&w=500" 
   },
   { 
     id: 'p2',
-    name: "Pulse", 
-    desc: "Supports steady focus and daily energy with a mindful formula.", 
+    name: "Pre-Pump", 
+    desc: "High caffeine formula for explosive workout energy.", 
     rate: "4.9", 
-    src: "https://picsum.photos/1000/600?random=11" 
+    src: "https://images.unsplash.com/photo-1550572017-4fcdbb560444?auto=format&fit=crop&q=80&w=500" 
   },
   { 
     id: 'p3',
-    name: "Calm", 
-    desc: "A soft blend designed to help your body unwind naturally.", 
+    name: "BCAA+", 
+    desc: "Essential amino acids to prevent muscle catabolism.", 
     rate: "5.0", 
-    src: "https://picsum.photos/1000/600?random=12" 
+    src: "https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&q=80&w=500" 
   },
   { 
     id: 'p4',
-    name: "Flow", 
-    desc: "Daily support to keep your system feeling light and consistent.", 
+    name: "Creatine Mono", 
+    desc: "Pure micronized creatine for strength and power.", 
     rate: "4.8", 
-    src: "https://picsum.photos/1000/600?random=13" 
+    src: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&q=80&w=500" 
   }
 ];
 
 export const TREATMENTS: Treatment[] = [
   { 
     id: 't1', 
-    name: "Weight loss treatment", 
-    desc: "Support your body and balance weight through personalised wellness guidance.", 
+    name: "Fat Shredder", 
+    desc: "High intensity training to burn fat fast.", 
     price: "$400", 
     rating: "5.0" 
   },
   { 
     id: 't2', 
-    name: "Testosterone booster", 
-    desc: "Support energy, focus, and performance through tailored protocols.", 
+    name: "Muscle Mass", 
+    desc: "Hypertrophy focused program for size.", 
     price: "$320", 
     rating: "4.8" 
   },
   { 
     id: 't3', 
-    name: "Progesterone balancing", 
-    desc: "Balance rhythm & recovery with mindful, guided wellness support.", 
+    name: "Powerlifting", 
+    desc: "Strength training focusing on the big three lifts.", 
     price: "$280", 
     rating: "4.9" 
   },
   { 
     id: 't4', 
-    name: "Anti-aging treatment", 
-    desc: "Support longevity and everyday vitality through a gentle routine.", 
+    name: "Athletic Conditioning", 
+    desc: "Improve speed, agility and endurance.", 
     price: "$360", 
     rating: "5.0" 
   },
@@ -72,30 +72,30 @@ export const TREATMENTS: Treatment[] = [
 
 export const FAQS: FAQItem[] = [
   { 
-    question: "Can I book a private experience?", 
-    answer: "Yes. Choose a treatment and select a private session during booking. We’ll confirm availability by email." 
+    question: "Can I book a private training session?", 
+    answer: "Yes. Choose a program and select 'Private Coaching' during checkout. We will assign a dedicated trainer to you." 
   },
   { 
-    question: "How Much Time is Needed Per Session?", 
-    answer: "Typical sessions are 45–60 minutes, depending on treatment type and your personalised plan." 
+    question: "How long is each workout?", 
+    answer: "Typical sessions are 45–90 minutes, depending on the intensity and goals of your personalized plan." 
   },
   { 
-    question: "Can beginners join the sessions?", 
-    answer: "Absolutely. Programs are designed to scale from beginner to advanced with guidance." 
+    question: "Is this suitable for beginners?", 
+    answer: "Absolutely. All programs scale from beginner to elite athlete levels with appropriate modifications." 
   },
   { 
-    question: "Do you have physical locations?", 
-    answer: "We offer both online guidance and limited in-person availability depending on the region." 
+    question: "Do I need gym access?", 
+    answer: "Most programs assume gym access, but we offer 'Home Workout' variants requiring minimal equipment." 
   },
   { 
-    question: "My treatment isn’t working. What now?", 
-    answer: "We’ll reassess your plan, check consistency factors, and adjust guidance. Contact support for a review." 
+    question: "I'm not seeing muscle growth. Help?", 
+    answer: "We'll review your nutrition logs and training volume. Plateaus happen, but our adjustments break through them." 
   },
 ];
 
 export const TAB_DATA: Record<TabKey, TabData> = {
-  overview: { desc: "Join thousands finding success through self-help.", kcal: 1800, macro: 142 },
-  assurance: { desc: "Clinically guided routines with measurable progress.", kcal: 1750, macro: 128 },
-  balanced: { desc: "Balanced nutrition targets for stable energy.", kcal: 1900, macro: 150 },
-  membership: { desc: "Member plans tailored for consistency.", kcal: 1650, macro: 120 }
+  overview: { desc: "Join thousands transforming their physique.", kcal: 2500, macro: 180 },
+  assurance: { desc: "Science-backed hypertrophy training.", kcal: 2800, macro: 200 },
+  balanced: { desc: "Balanced macros for lean gains.", kcal: 2200, macro: 160 },
+  membership: { desc: "Elite access to all facilities.", kcal: 3000, macro: 220 }
 };

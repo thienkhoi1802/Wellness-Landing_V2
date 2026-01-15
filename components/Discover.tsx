@@ -4,38 +4,38 @@ import { ArrowRight, Star } from 'lucide-react';
 const TREATMENTS_DATA = [
   { 
     id: 't1', 
-    name: "Weight loss treatment", 
-    desc: "Support sustainable and balanced weight loss through personalized care, guided support, and healthier long-term habits.", 
+    name: "Fat Loss Program", 
+    desc: "High-intensity interval training combined with a caloric deficit plan to shred fat while preserving lean muscle mass.", 
     price: 400, 
-    stats: { fat: 19, muscle: 33 },
-    image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=1000&h=1200",
+    stats: { fat: 12, muscle: 45 },
+    image: "https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?auto=format&fit=crop&q=80&w=1000&h=1200",
     reviews: "5.0 reviews"
   },
   { 
     id: 't2', 
-    name: "Testosterone booster", 
-    desc: "Support energy, strength, and vitality through tailored protocols designed to restore your natural peak performance.", 
+    name: "Hypertrophy Push", 
+    desc: "Volume-focused weight training designed to maximize muscle growth and strength gains through progressive overload.", 
     price: 320, 
-    stats: { fat: 15, muscle: 42 },
+    stats: { fat: 15, muscle: 55 },
     image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=1000&h=1200",
     reviews: "4.8 reviews"
   },
   { 
     id: 't3', 
-    name: "Progesterone balancing", 
-    desc: "Balance hormones for improved wellbeing, sleep quality, and emotional stability through mindful guidance.", 
+    name: "Flexibility & Mobility", 
+    desc: "Active recovery sessions involving yoga and deep stretching to prevent injury and improve range of motion.", 
     price: 280, 
-    stats: { fat: 22, muscle: 28 },
-    image: "https://images.unsplash.com/photo-1544367563-12123d8965cd?auto=format&fit=crop&q=80&w=1000&h=1200",
+    stats: { fat: 18, muscle: 35 },
+    image: "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?auto=format&fit=crop&q=80&w=1000&h=1200",
     reviews: "4.9 reviews"
   },
   { 
     id: 't4', 
-    name: "Anti-aging treatment", 
-    desc: "Support longevity and youthful vitality with a holistic approach to cellular health and skin regeneration.", 
+    name: "Athletic Performance", 
+    desc: "Explosive power training and conditioning for athletes looking to improve speed, agility, and endurance.", 
     price: 360, 
-    stats: { fat: 18, muscle: 30 },
-    image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&q=80&w=1000&h=1200",
+    stats: { fat: 10, muscle: 50 },
+    image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=1000&h=1200",
     reviews: "5.0 reviews"
   },
 ];
@@ -45,38 +45,38 @@ const Discover: React.FC = () => {
   const activeItem = TREATMENTS_DATA.find(t => t.id === activeId) || TREATMENTS_DATA[0];
 
   return (
-    <section className="py-[60px] md:py-[100px] border-t border-black/5" id="discover">
-      <div className="max-w-[1240px] w-[calc(100%-48px)] mx-auto">
+    <section className="py-16 md:py-32 border-t border-black/5" id="discover">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         
         {/* Header Label */}
-        <div className="flex justify-between items-center text-ink-muted text-[10px] md:text-xs tracking-widest uppercase mb-12">
-          <div>// OUR TREATMENT</div>
+        <div className="flex justify-between items-center text-ink-muted text-[10px] md:text-xs tracking-widest uppercase mb-12 md:mb-24">
+          <div>// OUR PROGRAMS</div>
           <div>[ 04 ]</div>
         </div>
 
         {/* Top Headings */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-16 md:mb-20">
-          <h2 className="text-[42px] md:text-[64px] leading-[0.95] tracking-[-1.5px] text-ink font-normal max-w-[600px]">
-            Discover the treatment<br/>that’s right for you
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 md:gap-12 mb-12 md:mb-24">
+          <h2 className="text-[36px] md:text-[64px] leading-[1] md:leading-[0.95] tracking-[-1px] md:tracking-[-1.5px] text-ink font-normal max-w-[640px]">
+            Discover the training<br/>that fits your goals
           </h2>
 
-          <div className="flex gap-6 items-center max-w-[400px]">
+          <div className="flex gap-8 items-center max-w-[400px]">
              {/* Decorative Circles */}
              <div className="hidden md:flex -space-x-4">
-                <div className="w-10 h-10 rounded-full border border-black/20"></div>
-                <div className="w-10 h-10 rounded-full border border-black/20"></div>
+                <div className="w-12 h-12 rounded-full border border-black/20"></div>
+                <div className="w-12 h-12 rounded-full border border-black/20"></div>
              </div>
-             <p className="text-ink/60 text-[15px] leading-relaxed">
-               “ Join thousands finding success through success through success self-help. ”
+             <p className="text-ink/60 text-[15px] md:text-[16px] leading-relaxed">
+               “ Join thousands achieving their dream physique through dedicated training. ”
              </p>
           </div>
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-start">
           
-          {/* Left Column: Hero Image & Data Card */}
-          <div className="relative w-full aspect-[3/4] lg:h-[720px] lg:aspect-auto rounded-[32px] overflow-hidden bg-[#f0f0f0]">
+          {/* Left Column: Hero Image & Data Card (Hidden on Mobile) */}
+          <div className="hidden lg:block relative w-full aspect-[3/4] lg:h-[720px] lg:aspect-auto rounded-[32px] overflow-hidden bg-[#f0f0f0]">
              {/* Background Image */}
              <div 
                className="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out"
@@ -84,18 +84,18 @@ const Discover: React.FC = () => {
              />
              
              {/* Floating Data Card */}
-             <div className="absolute bottom-6 left-6 right-6 bg-white rounded-[24px] p-6 shadow-soft animate-fade-in-up">
-                <div className="flex justify-between items-start mb-6">
+             <div className="absolute bottom-8 left-8 right-8 bg-white rounded-[24px] p-8 shadow-soft animate-fade-in-up">
+                <div className="flex justify-between items-start mb-8">
                    <div>
-                      <span className="text-[10px] text-ink/40 font-bold tracking-widest uppercase block mb-1">START FROM</span>
-                      <span className="text-[36px] font-medium text-ink tracking-tight">${activeItem.price}</span>
+                      <span className="text-[10px] text-ink/40 font-bold tracking-widest uppercase block mb-2">START FROM</span>
+                      <span className="text-[42px] font-medium text-ink tracking-tight leading-none">${activeItem.price}</span>
                    </div>
                    
                    {/* Mini Graph Visualization */}
                    <div className="relative w-[140px] h-[60px]">
                       {/* Floating Tag */}
-                      <div className="absolute -top-3 right-8 bg-[#1a2e29] text-white text-[10px] font-bold px-2 py-1 rounded-md z-10">
-                        72,5 <span className="text-[8px] font-normal opacity-70">KG</span>
+                      <div className="absolute -top-3 right-8 bg-[#1a2e29] text-white text-[10px] font-bold px-2.5 py-1 rounded-md z-10">
+                        85 <span className="text-[8px] font-normal opacity-70">KG</span>
                       </div>
                       <svg viewBox="0 0 140 60" className="w-full h-full overflow-visible">
                         <path d="M0,50 Q30,50 45,35 T75,40 T105,20 T140,30" fill="none" stroke="#dbecc2" strokeWidth="3" />
@@ -111,20 +111,20 @@ const Discover: React.FC = () => {
                    </div>
                 </div>
 
-                <div className="flex gap-8 border-t border-black/5 pt-5">
+                <div className="flex gap-12 border-t border-black/5 pt-6">
                    <div className="flex-1">
-                      <p className="text-[13px] text-ink/60 leading-relaxed mb-0">
-                        Personalized plans for sustainable, healthy weight loss.
+                      <p className="text-[14px] text-ink/60 leading-relaxed mb-0">
+                        Personalized plans for strength, endurance and aesthetics.
                       </p>
                    </div>
-                   <div className="flex gap-8">
+                   <div className="flex gap-10">
                       <div>
-                         <span className="text-[10px] text-ink/40 font-bold tracking-widest uppercase block mb-1">FAT CONTENT</span>
-                         <span className="text-xl font-medium text-ink">{activeItem.stats.fat} <span className="text-sm font-normal text-ink/40">%</span></span>
+                         <span className="text-[10px] text-ink/40 font-bold tracking-widest uppercase block mb-1">BODY FAT</span>
+                         <span className="text-2xl font-medium text-ink">{activeItem.stats.fat} <span className="text-sm font-normal text-ink/40">%</span></span>
                       </div>
                       <div>
-                         <span className="text-[10px] text-ink/40 font-bold tracking-widest uppercase block mb-1">BODY MUSCLE</span>
-                         <span className="text-xl font-medium text-ink">{activeItem.stats.muscle} <span className="text-sm font-normal text-ink/40">%</span></span>
+                         <span className="text-[10px] text-ink/40 font-bold tracking-widest uppercase block mb-1">MUSCLE MASS</span>
+                         <span className="text-2xl font-medium text-ink">{activeItem.stats.muscle} <span className="text-sm font-normal text-ink/40">%</span></span>
                       </div>
                    </div>
                 </div>
@@ -132,7 +132,7 @@ const Discover: React.FC = () => {
           </div>
 
           {/* Right Column: Step List */}
-          <div className="flex flex-col py-4">
+          <div className="flex flex-col py-0 md:py-4">
             {TREATMENTS_DATA.map((item, index) => {
               const isActive = activeId === item.id;
               const number = `0${index + 1}`;
@@ -142,19 +142,19 @@ const Discover: React.FC = () => {
                   key={item.id} 
                   onClick={() => setActiveId(item.id)}
                   className={`group border-b border-black/10 transition-all duration-500 cursor-pointer ${
-                    isActive ? 'pb-10 pt-6 opacity-100' : 'py-8 opacity-40 hover:opacity-70'
+                    isActive ? 'pb-8 pt-6 md:pb-12 md:pt-8 opacity-100' : 'py-6 md:py-8 opacity-40 hover:opacity-70'
                   }`}
                 >
-                  <div className="flex items-baseline gap-6 md:gap-8">
+                  <div className="flex items-baseline gap-6 md:gap-12">
                      {/* Number Circle */}
-                     <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full border flex items-center justify-center text-sm transition-colors flex-shrink-0 ${
+                     <div className={`w-8 h-8 md:w-12 md:h-12 rounded-full border flex items-center justify-center text-xs md:text-sm transition-colors flex-shrink-0 ${
                        isActive ? 'border-ink text-ink font-medium' : 'border-black/20 text-ink/50'
                      }`}>
                         {number}
                      </div>
 
                      <div className="flex-1">
-                        <h3 className={`text-[28px] md:text-[36px] font-normal leading-tight tracking-[-0.5px] transition-all mb-4 ${
+                        <h3 className={`text-[24px] md:text-[36px] font-normal leading-tight tracking-[-0.5px] transition-all mb-4 ${
                           isActive ? 'text-ink' : 'text-ink'
                         }`}>
                           {item.name}
@@ -164,31 +164,25 @@ const Discover: React.FC = () => {
                           isActive ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                         }`}>
                            <div className="overflow-hidden">
-                              <p className="text-[15px] leading-[1.7] text-ink/60 max-w-[480px] mb-8">
+                              <p className="text-[15px] md:text-[16px] leading-[1.7] text-ink/60 max-w-[500px] mb-8 md:mb-10">
                                 {item.desc}
                               </p>
                               
-                              <div className="flex items-center gap-8">
+                              <div className="flex flex-wrap items-center gap-6 md:gap-10">
                                  <button className="flex items-center gap-3 bg-[#1a2e29] text-white pl-6 pr-2 py-2 rounded-full hover:bg-black transition-colors active:scale-95 group/btn">
-                                    <span className="text-[13px] font-medium">Book now</span>
+                                    <span className="text-[13px] font-medium tracking-wide">Join now</span>
                                     <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-[#1a2e29] group-hover/btn:scale-105 transition-transform">
                                       <ArrowRight size={16} />
                                     </div>
                                  </button>
                                  
                                  <div className="flex items-center gap-2 text-ink font-medium text-[15px]">
-                                    <Star size={16} className="fill-[#fea920] text-[#fea920]" />
+                                    <Star size={18} className="fill-[#fea920] text-[#fea920]" />
                                     {item.reviews}
                                  </div>
                               </div>
                            </div>
                         </div>
-
-                        {!isActive && (
-                           <p className="text-[14px] text-ink/40 mt-1 hidden md:block">
-                             Support energy, strength, and vitality.
-                           </p>
-                        )}
                      </div>
                   </div>
                 </div>

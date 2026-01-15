@@ -1,225 +1,281 @@
 import React, { useState } from 'react';
-import { Search, Star, ShoppingBag, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Search, Star, ShoppingBag, ArrowRight, ArrowLeft, Plus } from 'lucide-react';
 
 const CATEGORIES = [
-  'Serum', 'Acne treatment', 'Body care', 'Hair care', 'Energy support', 'Scalp care'
+  'Whey Protein', 'Pre-Workout', 'Creatine', 'Vitamins', 'Gear', 'BCAA'
 ];
 
-const DISPLAY_PRODUCTS = [
-  {
-    id: 'p1',
-    name: 'Clarity',
-    type: 'Acne Treatment',
-    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=300&h=600',
-    bgColor: '#f4f4f4'
-  },
-  {
-    id: 'p2',
-    name: 'Reversal',
-    type: 'Anti-Aging Cream',
-    image: 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&q=80&w=300&h=600',
-    bgColor: '#f0efe9'
-  },
-  {
-    id: 'p_main',
-    name: 'Dawn',
-    type: 'Morning Cream',
-    desc: 'Revitalizing morning cream that nourishes skin by delivering antioxidants.',
-    rating: '5.0',
-    price: '$30',
-    image: 'https://images.unsplash.com/photo-1556228720-197793d83316?auto=format&fit=crop&q=80&w=500&h=800',
-    bgColor: '#e6e4df',
-    isFeatured: true
-  },
-  {
-    id: 'p3',
-    name: 'Balance',
-    type: 'Acne Treatment',
-    image: 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&q=80&w=300&h=600',
-    bgColor: '#f2eae5'
-  },
-  {
-    id: 'p4',
-    name: 'Bright',
-    type: 'Moisture Cream',
-    image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&q=80&w=300&h=600',
-    bgColor: '#e8e8e8'
-  }
+// Data: 3 Pages, 5 Items per page.
+// Item 0 is always the "Featured" large item on the left.
+const PRODUCT_PAGES = [
+  // PAGE 1: CORE SUPPLEMENTS
+  [
+    {
+      id: 'p1_main',
+      name: 'Isolate Gold Standard',
+      category: 'Whey Protein',
+      price: '$65.00',
+      rating: '5.0',
+      image: 'https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?auto=format&fit=crop&q=80&w=800&h=1000',
+      desc: '100% Whey Isolate for maximum absorption and lean muscle recovery.',
+      isFeatured: true
+    },
+    {
+      id: 'p1_1',
+      name: 'Pre-Workout Igniter',
+      category: 'Energy',
+      price: '$42.00',
+      image: 'https://images.unsplash.com/photo-1550572017-4fcdbb560444?auto=format&fit=crop&q=80&w=500&h=500'
+    },
+    {
+      id: 'p1_2',
+      name: 'Creatine Monohydrate',
+      category: 'Strength',
+      price: '$35.00',
+      image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&q=80&w=500&h=500'
+    },
+    {
+      id: 'p1_3',
+      name: 'BCAA Energy +',
+      category: 'Recovery',
+      price: '$28.00',
+      image: 'https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&q=80&w=500&h=500'
+    },
+    {
+      id: 'p1_4',
+      name: 'Omega-3 Fish Oil',
+      category: 'Health',
+      price: '$22.00',
+      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=500&h=500'
+    }
+  ],
+  // PAGE 2: VITAMINS & WELLNESS
+  [
+    {
+      id: 'p2_main',
+      name: 'Daily Multivitamin Pack',
+      category: 'Wellness',
+      price: '$45.00',
+      rating: '4.9',
+      image: 'https://images.unsplash.com/photo-1512069772995-ec65ed45afd0?auto=format&fit=crop&q=80&w=800&h=1000',
+      desc: 'Complete daily nutritional support optimized for active athletes.',
+      isFeatured: true
+    },
+    {
+      id: 'p2_1',
+      name: 'Vitamin D3 + K2',
+      category: 'Bone Health',
+      price: '$18.00',
+      image: 'https://images.unsplash.com/photo-1616671276445-162152671f8f?auto=format&fit=crop&q=80&w=500&h=500'
+    },
+    {
+      id: 'p2_2',
+      name: 'ZMA Night Recovery',
+      category: 'Sleep',
+      price: '$30.00',
+      image: 'https://images.unsplash.com/photo-1550572017-91a5cbdf8d05?auto=format&fit=crop&q=80&w=500&h=500'
+    },
+    {
+      id: 'p2_3',
+      name: 'Green Superfood',
+      category: 'Detox',
+      price: '$38.00',
+      image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&q=80&w=500&h=500'
+    },
+    {
+      id: 'p2_4',
+      name: 'Collagen Peptides',
+      category: 'Joints',
+      price: '$40.00',
+      image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&q=80&w=500&h=500'
+    }
+  ],
+  // PAGE 3: GEAR & ACCESSORIES
+  [
+    {
+      id: 'p3_main',
+      name: 'Pro Lifting Straps',
+      category: 'Gear',
+      price: '$25.00',
+      rating: '5.0',
+      image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800&h=1000',
+      desc: 'Heavy-duty cotton straps with neoprene padding for heavy lifts.',
+      isFeatured: true
+    },
+    {
+      id: 'p3_1',
+      name: 'Metal Shaker Bottle',
+      category: 'Accessories',
+      price: '$20.00',
+      image: 'https://images.unsplash.com/photo-1577224682227-28563e0d8692?auto=format&fit=crop&q=80&w=500&h=500'
+    },
+    {
+      id: 'p3_2',
+      name: 'Resistance Bands',
+      category: 'Training',
+      price: '$15.00',
+      image: 'https://images.unsplash.com/photo-1598289431512-b97b0917affc?auto=format&fit=crop&q=80&w=500&h=500'
+    },
+    {
+      id: 'p3_3',
+      name: 'Gym Duffel Bag',
+      category: 'Gear',
+      price: '$55.00',
+      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=500&h=500'
+    },
+    {
+      id: 'p3_4',
+      name: 'Lifting Belt Leather',
+      category: 'Gear',
+      price: '$85.00',
+      image: 'https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&q=80&w=500&h=500'
+    }
+  ]
 ];
 
 const Products: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState('Acne treatment');
-  const [searchTerm, setSearchTerm] = useState('');
-  
-  // Extract data for easy layout mapping
-  const leftProducts = DISPLAY_PRODUCTS.slice(0, 2);
-  const featuredProduct = DISPLAY_PRODUCTS[2];
-  const rightProducts = DISPLAY_PRODUCTS.slice(3, 5);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const totalPages = PRODUCT_PAGES.length;
+  const currentProducts = PRODUCT_PAGES[currentPage];
+
+  // Helper to handle page change with simple delay for "animation" feel
+  const handlePageChange = (direction: 'next' | 'prev') => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    
+    setTimeout(() => {
+      setCurrentPage((prev) => {
+        if (direction === 'next') return (prev + 1) % totalPages;
+        return (prev - 1 + totalPages) % totalPages;
+      });
+      setIsAnimating(false);
+    }, 200);
+  };
 
   return (
-    <section className="py-[60px] border-t border-black/5" id="products">
-      <div className="max-w-[1240px] w-[calc(100%-48px)] mx-auto">
+    <section className="py-16 md:py-32 border-t border-black/5 bg-[#f6f7f7]" id="products">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         
-        {/* Header Label */}
-        <div className="flex justify-between items-center text-ink-muted text-[10px] md:text-xs tracking-widest uppercase mb-8">
-          <div>// OUR PRODUCTS</div>
-          <div>[ 05 ]</div>
-        </div>
+        {/* Header Row */}
+        <div className="flex flex-col md:flex-row justify-between items-end gap-6 md:gap-8 mb-12 md:mb-16">
+          <div className="flex flex-col gap-4">
+             <div className="flex items-center gap-4 text-ink-muted text-[10px] md:text-xs tracking-widest uppercase">
+                <span>// STORE</span>
+                <span>[ 05 ]</span>
+             </div>
+             <h2 className="text-[36px] md:text-[56px] leading-[1] tracking-[-1px] md:tracking-[-1.5px] text-ink font-normal">
+                Fuel your body<br/>with the best.
+             </h2>
+          </div>
 
-        {/* Filter & Search Bar */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-12">
-          
-          <div className="flex items-center gap-4 flex-wrap">
-            <span className="text-sm font-semibold text-ink mr-2">Filter</span>
-            <div className="flex flex-wrap gap-2">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-lg text-[13px] transition-all ${
-                    activeCategory === cat 
-                      ? 'bg-[#1a2e29] text-white shadow-md' 
-                      : 'bg-[#f6f7f7] text-ink/60 hover:bg-gray-200'
-                  }`}
+          <div className="flex items-center justify-between w-full md:w-auto gap-6">
+             {/* Simple Category Pills - Hidden on mobile to save space or could be scrolling */}
+             <div className="hidden lg:flex gap-2">
+               {CATEGORIES.slice(0, 3).map(cat => (
+                 <span key={cat} className="px-4 py-2 rounded-full border border-black/10 text-[13px] font-medium text-ink/60 hover:bg-white hover:text-ink transition-colors cursor-pointer">
+                   {cat}
+                 </span>
+               ))}
+               <span className="px-4 py-2 rounded-full border border-black/10 text-[13px] font-medium text-ink/60">+3</span>
+             </div>
+
+             {/* Navigation Arrows */}
+             <div className="flex gap-3 ml-auto md:ml-0">
+                <button 
+                  onClick={() => handlePageChange('prev')}
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 bg-white flex items-center justify-center hover:bg-[#1a2e29] hover:text-white transition-all active:scale-95"
                 >
-                  {cat}
+                   <ArrowLeft className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]" />
                 </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="relative w-full lg:w-[280px]">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-ink/40">
-              <Search size={16} />
-            </div>
-            <input 
-              type="text" 
-              placeholder="Search products..." 
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-[#f6f7f7] text-[13px] pl-10 pr-4 py-2.5 rounded-lg outline-none focus:ring-1 focus:ring-black/10 transition-shadow placeholder:text-ink/30"
-            />
+                <button 
+                  onClick={() => handlePageChange('next')}
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 bg-white flex items-center justify-center hover:bg-[#1a2e29] hover:text-white transition-all active:scale-95"
+                >
+                   <ArrowRight className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]" />
+                </button>
+             </div>
           </div>
         </div>
 
-        {/* Title */}
-        <div className="mb-10">
-          <h2 className="text-[32px] md:text-[48px] leading-[1.05] tracking-[-1px] text-ink max-w-[600px]">
-            Daily formula crafted to support your natural rhythm.
-          </h2>
-        </div>
-
-        {/* Main Grid Layout */}
-        <div className="flex flex-col xl:flex-row gap-6 items-stretch">
-          
-          {/* LEFT GROUP: 2 Small Cards */}
-          <div className="flex flex-row sm:grid sm:grid-cols-2 xl:flex xl:flex-row gap-6 flex-shrink-0">
-            {leftProducts.map((p) => (
+        {/* Product Grid (Bento Style) */}
+        {/* Mobile: 1 col, Tablet: 2 cols, Desktop: 4 cols */}
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 transition-opacity duration-300 ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
+           
+           {/* Item 0: FEATURED (Large, spans 2 cols & 2 rows on Desktop) */}
+           <div className="lg:col-span-2 lg:row-span-2 relative h-[420px] lg:h-auto rounded-[24px] md:rounded-[32px] overflow-hidden bg-white group cursor-pointer shadow-sm hover:shadow-card transition-all">
               <div 
-                key={p.id} 
-                className="group relative w-full sm:w-[200px] h-[320px] rounded-[24px] overflow-hidden flex flex-col items-center justify-center cursor-pointer transition-transform hover:-translate-y-1"
-                style={{ backgroundColor: p.bgColor }}
-              >
-                <div className="h-[70%] w-full flex items-center justify-center p-4">
-                   {/* Mockup Bottle Effect */}
-                   <div className="w-[60px] h-[160px] rounded-full shadow-xl relative overflow-hidden bg-gradient-to-tr from-black/20 to-transparent">
-                      <img src={p.image} alt={p.name} className="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-overlay" />
-                      <div className="absolute inset-0 flex flex-col items-center justify-center text-white/90 z-10">
-                         <span className="text-[8px] uppercase tracking-widest mb-1">HEVA</span>
-                         <span className="text-sm font-serif">{p.name}</span>
-                         <span className="text-[6px] mt-4 opacity-70 text-center px-1">{p.type}</span>
-                      </div>
-                   </div>
-                </div>
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                style={{ backgroundImage: `url('${currentProducts[0].image}')` }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              
+              <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-white/20 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-wider">
+                 Best Seller
               </div>
-            ))}
-          </div>
 
-          {/* CENTER HERO: 1 Large Featured Card */}
-          <div className="flex-1 min-w-[300px]">
-             <div className="relative w-full h-full min-h-[480px] bg-[#e3e3dc] rounded-[32px] overflow-hidden p-8 flex flex-col items-center justify-center group">
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex flex-col gap-3 md:gap-4">
+                 <div className="flex justify-between items-end text-white">
+                    <div>
+                       <div className="text-white/70 text-sm mb-1">{currentProducts[0].category}</div>
+                       <h3 className="text-[28px] md:text-[32px] font-medium leading-tight">{currentProducts[0].name}</h3>
+                    </div>
+                    <div className="text-[20px] md:text-[24px] font-medium">{currentProducts[0].price}</div>
+                 </div>
+                 
+                 <div className="h-0 group-hover:h-auto overflow-hidden transition-all duration-300">
+                    <p className="text-white/80 text-[15px] mb-6 pt-2 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
+                       {currentProducts[0].desc}
+                    </p>
+                    <button className="w-full py-4 bg-white text-[#1a2e29] font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#cfe7a7] transition-colors">
+                       <ShoppingBag size={18} />
+                       Add to Cart
+                    </button>
+                 </div>
+              </div>
+           </div>
+
+           {/* Items 1-4: Standard Grid Items */}
+           {currentProducts.slice(1).map((product, idx) => (
+             <div key={idx} className="relative aspect-[4/5] md:aspect-auto md:h-[320px] rounded-[24px] overflow-hidden bg-white p-4 flex flex-col justify-between group cursor-pointer shadow-sm hover:shadow-card transition-all">
                 
-                {/* Badge */}
-                <div className="absolute top-6 left-6 bg-[#ebccc9] text-[#8a4a45] text-[11px] font-bold px-3 py-1.5 rounded-md uppercase tracking-wide">
-                  OFF 20%
-                </div>
-
-                {/* Big Bottle */}
-                <div className="w-[120px] h-[340px] rounded-full shadow-2xl relative overflow-hidden bg-[#1a2e29] mb-12 transition-transform duration-500 group-hover:scale-105">
-                   <img src={featuredProduct.image} alt={featuredProduct.name} className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay" />
-                   <div className="absolute inset-0 flex flex-col items-center justify-center text-[#e8f5d6] z-10">
-                         <span className="text-[10px] uppercase tracking-widest mb-4">HEVA</span>
-                         <span className="text-[32px] font-serif mb-2">{featuredProduct.name}</span>
-                         <span className="text-[10px] opacity-80 mt-12">Morning Cream</span>
-                         <span className="text-[8px] border border-[#e8f5d6]/30 px-1.5 py-0.5 mt-2 rounded">RX ONLY</span>
-                   </div>
-                </div>
-
-                {/* Bottom Action Bar */}
-                <div className="absolute bottom-6 left-6 right-6 bg-[#1a2e29] rounded-[20px] p-2 pl-6 flex justify-between items-center text-white shadow-xl">
-                   <div className="flex flex-col">
-                      <span className="text-[13px] font-medium">Buy now ({featuredProduct.price})</span>
-                   </div>
-                   <button className="w-10 h-10 bg-white rounded-[14px] flex items-center justify-center text-[#1a2e29] hover:bg-gray-100 transition-colors">
-                      <ShoppingBag size={18} />
+                {/* Image Area */}
+                <div className="relative w-full h-[65%] rounded-[18px] overflow-hidden bg-[#f4f4f4] mb-4">
+                   <div 
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                      style={{ backgroundImage: `url('${product.image}')` }}
+                   />
+                   {/* Add Button Overlay */}
+                   <button className="absolute bottom-3 right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center text-ink shadow-md translate-y-12 group-hover:translate-y-0 transition-transform duration-300">
+                      <Plus size={20} />
                    </button>
                 </div>
-             </div>
-          </div>
 
-          {/* RIGHT GROUP: Text + 2 Small Cards */}
-          <div className="flex flex-col gap-8 flex-1 xl:max-w-[440px]">
-             {/* Text Info */}
-             <div className="flex flex-col gap-3 pt-4">
-                <h3 className="text-[42px] font-normal text-ink leading-tight">{featuredProduct.name}</h3>
-                <p className="text-ink/60 text-[15px] leading-relaxed max-w-[300px]">
-                  {featuredProduct.desc}
-                </p>
-                <div className="flex items-center gap-2 mt-1">
-                   <Star size={16} className="fill-[#fea920] text-[#fea920]" />
-                   <span className="text-[15px] font-medium text-ink">{featuredProduct.rating}</span>
-                   <span className="text-[13px] text-ink/50">Customer ratings</span>
+                {/* Info Area */}
+                <div className="px-1 pb-1">
+                   <div className="flex justify-between items-start mb-1">
+                      <div className="text-[11px] text-ink/40 font-bold uppercase tracking-wider">{product.category}</div>
+                      <div className="text-[15px] font-bold text-ink">{product.price}</div>
+                   </div>
+                   <h4 className="text-[18px] leading-tight font-medium text-ink group-hover:text-[#1a2e29] transition-colors">
+                      {product.name}
+                   </h4>
                 </div>
-             </div>
 
-             {/* 2 Small Cards Grid */}
-             <div className="flex flex-row sm:grid sm:grid-cols-2 gap-6 mt-auto">
-               {rightProducts.map((p) => (
-                  <div 
-                    key={p.id} 
-                    className="group relative w-full sm:w-[200px] h-[260px] rounded-[24px] overflow-hidden flex flex-col items-center justify-center cursor-pointer transition-transform hover:-translate-y-1"
-                    style={{ backgroundColor: p.bgColor }}
-                  >
-                    <div className="h-[80%] w-full flex items-center justify-center p-4">
-                      {/* Mockup Bottle Effect */}
-                      <div className="w-[50px] h-[130px] rounded-full shadow-lg relative overflow-hidden bg-gradient-to-b from-[#dcbba6] to-[#cba388]">
-                          <img src={p.image} alt={p.name} className="absolute inset-0 w-full h-full object-cover opacity-70 mix-blend-overlay" />
-                          <div className="absolute inset-0 flex flex-col items-center justify-center text-white/90 z-10">
-                            <span className="text-[7px] uppercase tracking-widest mb-1">HEVA</span>
-                            <span className="text-xs font-serif">{p.name}</span>
-                            <span className="text-[5px] mt-2 opacity-80 text-center px-1 leading-tight">{p.type}</span>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
              </div>
-          </div>
+           ))}
+
         </div>
 
-        {/* Pagination */}
-        <div className="flex items-center gap-6 mt-12 md:mt-16">
-           <span className="text-xl font-medium text-ink/80 tracking-widest">
-             1 <span className="text-ink/30 font-light">/ 8</span>
-           </span>
-           <div className="flex gap-3">
-              <button className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center text-ink/60 hover:bg-black/5 transition-all">
-                <ArrowLeft size={20} />
-              </button>
-              <button className="w-12 h-12 rounded-full border border-black/80 bg-transparent flex items-center justify-center text-ink hover:bg-black hover:text-white transition-all">
-                <ArrowRight size={20} />
-              </button>
-           </div>
+        {/* Pagination Dots */}
+        <div className="flex justify-center gap-2 mt-8 md:mt-12">
+           {PRODUCT_PAGES.map((_, idx) => (
+              <div 
+                key={idx}
+                className={`h-1 rounded-full transition-all duration-300 ${idx === currentPage ? 'w-12 bg-ink' : 'w-2 bg-ink/20'}`}
+              />
+           ))}
         </div>
 
       </div>
