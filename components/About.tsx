@@ -82,3 +82,15 @@ const About: React.FC = () => {
                    <h3 className="text-xl font-medium text-ink mb-2">Natural & Gentle</h3>
                    <p className="text-sm text-ink/60 leading-relaxed">
                       We prioritize formulations that work in harmony with your body's natural rhythms, minimizing side effects.
+                   </p>
+                </div>
+             </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default About;

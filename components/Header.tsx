@@ -1,75 +1,69 @@
 import React, { useState } from 'react';
 import { NAV_LINKS } from '../constants';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X, Search } from 'lucide-react';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAvailable, setIsAvailable] = useState(true);
-  const [tzLeft, setTzLeft] = useState("[ LONDON, UK - GMT + 01 ]");
-  const [tzRight, setTzRight] = useState("[ BALI, ID - GMT + 7 ]");
-
-  const toggleAvailability = () => setIsAvailable(!isAvailable);
-  
-  const swapTZ = () => {
-    const temp = tzLeft;
-    setTzLeft(tzRight);
-    setTzRight(temp);
-  };
 
   return (
-    <header className="relative min-h-[680px] h-[720px] bg-[#0d1211] overflow-hidden border-b border-white/5 text-white" id="top">
-      {/* Background with overlay */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/50 z-10" />
-        <img 
-          src="https://picsum.photos/1200/800?random=1" 
-          alt="Hero Background" 
-          className="w-full h-full object-cover opacity-80"
-        />
-      </div>
+    <header className="relative h-screen min-h-[700px] max-h-[1080px] bg-[#0d1211] overflow-hidden text-white" id="top">
+       {/* Background Image & Gradient */}
+       <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop" 
+            alt="Wellness Hero" 
+            className="w-full h-full object-cover opacity-90"
+          />
+          {/* Warm overlay gradient to match the sunny vibe */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
+       </div>
 
-      {/* Top Bar */}
-      <div className="absolute top-0 left-0 right-0 z-50 py-4">
-        <div className="max-w-[1200px] w-[calc(100%-48px)] mx-auto flex items-center justify-between">
-          
-          {/* Brand */}
-          <div className="flex items-center gap-3 cursor-pointer select-none group" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-            <div className="w-[34px] h-[34px] rounded-full border border-white/30 relative backdrop-blur-md group-hover:border-white/50 transition-colors">
-              <div className="absolute inset-[7px] border border-white/20 rounded-full"></div>
-              <div className="absolute inset-[11px] border border-white/10 rounded-full"></div>
-            </div>
-            <span className="font-medium tracking-wide text-white/90">Wellness</span>
-          </div>
+       {/* Top Navigation Bar */}
+       <div className="absolute top-0 left-0 right-0 z-50 pt-8 pb-4">
+          <div className="max-w-[1360px] w-[calc(100%-48px)] mx-auto flex items-start justify-between">
+             
+             {/* Logo - Intersecting Circles */}
+             <div className="relative w-12 h-12 flex items-center -ml-2">
+                <div className="w-8 h-8 rounded-full border border-white/80 absolute left-0"></div>
+                <div className="w-8 h-8 rounded-full border border-white/80 absolute left-4"></div>
+             </div>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1 p-1.5 rounded-full bg-white/20 border border-white/20 backdrop-blur-xl shadow-lg">
-            {NAV_LINKS.map((link) => (
-              <a 
-                key={link.label} 
-                href={link.href}
-                className="px-3.5 py-2.5 rounded-full text-[13px] text-white/90 hover:bg-white/10 transition-all"
+             {/* Right Side Actions */}
+             <div className="hidden md:flex items-center gap-3">
+                {/* Nav Pill */}
+                <nav className="flex items-center gap-6 px-8 py-3.5 rounded-full bg-[#1e201f]/40 backdrop-blur-md border border-white/5 mr-2">
+                   {NAV_LINKS.map((link) => (
+                      <a key={link.label} href={link.href} className="text-[13px] font-medium text-white/90 hover:text-white transition-colors">
+                         {link.label}
+                      </a>
+                   ))}
+                </nav>
+
+                {/* Contact Button */}
+                <button className="px-6 py-3.5 rounded-full bg-white text-[#1a2e29] text-[13px] font-bold hover:bg-gray-100 transition-colors shadow-lg">
+                   Contact us
+                </button>
+
+                {/* Search Icon */}
+                <button className="w-[46px] h-[46px] rounded-full bg-[#1e201f]/40 backdrop-blur-md border border-white/5 flex items-center justify-center text-white hover:bg-white/20 transition-colors">
+                   <Search size={18} />
+                </button>
+             </div>
+              
+              {/* Mobile Menu Toggle */}
+              <button 
+                className="md:hidden p-3 rounded-full bg-black/20 backdrop-blur-md border border-white/20 text-white mt-1"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-                {link.label}
-              </a>
-            ))}
-            <button className="ml-1 px-4 py-2.5 rounded-full bg-white/90 text-ink text-[13px] font-medium active:translate-y-[1px] transition-transform hover:bg-white">
-              Contact us
-            </button>
-          </nav>
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+          </div>
+       </div>
 
-          {/* Mobile Menu Toggle */}
-          <button 
-            className="md:hidden p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
-        <div className="absolute top-[70px] left-4 right-4 z-40 bg-[#0d1211]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex flex-col gap-2 md:hidden">
+       {/* Mobile Menu Overlay */}
+       {isMenuOpen && (
+        <div className="absolute top-[90px] left-4 right-4 z-40 bg-[#0d1211]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex flex-col gap-2 md:hidden">
            {NAV_LINKS.map((link) => (
               <a 
                 key={link.label} 
@@ -86,54 +80,54 @@ const Header: React.FC = () => {
         </div>
       )}
 
-      {/* Availability Badge */}
-      <div 
-        className="absolute left-1/2 -translate-x-1/2 top-[92px] z-20 flex items-center gap-2.5 px-3.5 py-2.5 rounded-full bg-black/20 border border-white/20 backdrop-blur-xl cursor-pointer hover:bg-black/30 transition-colors"
-        onClick={toggleAvailability}
-      >
-        <span className={`w-2.5 h-2.5 rounded-full ${isAvailable ? 'bg-[#8df08b] shadow-[0_0_0_4px_rgba(141,240,139,0.15)]' : 'bg-red-400'}`}></span>
-        <span className="text-xs tracking-wide text-white/90 font-medium">
-          {isAvailable ? "AVAILABLE FOR TREATMENT" : "LIMITED AVAILABILITY"}
-        </span>
-      </div>
-
-      {/* Hero Content */}
-      <div className="absolute left-0 right-0 bottom-[30px] z-30">
-        <div className="max-w-[1200px] w-[calc(100%-48px)] mx-auto grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-6 items-end">
-          <div>
-            <h1 className="text-[42px] md:text-[58px] leading-[1.02] font-semibold tracking-[-0.9px] text-white/95 drop-shadow-2xl">
-              Thoughtful care for your body.<br />
-              Designed to bring balance,<br />
-              naturally and gently.
-            </h1>
+       {/* Availability Badge - Positioned Absolute Left - Adjusted to 180px from top (approx 100px below logo bottom) */}
+       <div className="absolute left-[24px] xl:left-[calc((100vw-1360px)/2+24px)] top-[180px] z-20">
+          <div className="flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm w-fit">
+             <div className="w-2 h-2 rounded-full bg-[#8df08b] shadow-[0_0_8px_rgba(141,240,139,0.5)]"></div>
+             <span className="text-[10px] tracking-widest uppercase text-white/80 font-medium">AVAILABLE FOR TREATMENT</span>
           </div>
-          
-          <div className="flex flex-col items-start lg:items-end gap-3">
-            <div className="max-w-[360px] text-[13px] leading-[1.55] text-white/80 p-4 rounded-[18px] bg-black/20 border border-white/10 backdrop-blur-xl">
-              A gentle approach to wellness,<br />
-              thoughtfully guided by care that<br />
-              supports everyday life.
-            </div>
-            
-            <div className="flex items-center gap-2.5 p-1.5 rounded-full border border-white/20 bg-white/15 backdrop-blur-xl shadow-2xl">
-              <button className="px-4 py-2.5 rounded-full bg-white text-ink text-[13px] font-medium active:translate-y-[1px] transition-transform hover:bg-gray-100">
-                Book now
-              </button>
-              <div className="w-10 h-10 rounded-full border border-white/20 bg-black/25 text-white flex items-center justify-center cursor-pointer hover:bg-black/40 transition-colors active:scale-95">
-                <ArrowRight size={16} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+       </div>
 
-      {/* Footer Info */}
-      <div className="absolute left-0 right-0 bottom-4 z-40 text-white/60 text-[11px] tracking-widest uppercase">
-        <div className="max-w-[1200px] w-[calc(100%-48px)] mx-auto flex justify-between items-center">
-          <div onClick={swapTZ} className="cursor-pointer hover:text-white transition-colors">{tzLeft}</div>
-          <div onClick={swapTZ} className="cursor-pointer hover:text-white transition-colors">{tzRight}</div>
-        </div>
-      </div>
+       {/* Main Content Area - Bottom Aligned */}
+       <div className="absolute inset-x-0 bottom-[100px] z-30">
+          <div className="max-w-[1360px] w-[calc(100%-48px)] mx-auto">
+             <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-12 items-end">
+                
+                {/* Headline */}
+                <div>
+                   <h1 className="text-[52px] md:text-[72px] lg:text-[88px] leading-[0.92] font-normal tracking-[-2.5px] text-white">
+                      Thoughtful care for your body.<br/>
+                      Designed to bring balance,<br/>
+                      naturally and gently.
+                   </h1>
+                </div>
+
+                {/* Subtext & CTA - Right Aligned */}
+                <div className="flex flex-col gap-10 lg:pl-10 pb-3">
+                   <p className="text-[17px] leading-[1.6] text-white/80 max-w-[380px]">
+                      A gentle approach to wellness, thoughtfully guided by care that supports everyday life.
+                   </p>
+                   
+                   <button className="group w-fit pl-6 pr-1.5 py-1.5 bg-white rounded-full flex items-center gap-6 transition-all hover:bg-gray-100 shadow-xl">
+                      <span className="text-[#1a2e29] font-bold text-[15px] tracking-tight">Book now</span>
+                      <div className="w-11 h-11 rounded-full bg-[#2e453e] text-white flex items-center justify-center group-hover:scale-105 transition-transform">
+                         <ArrowRight size={20} />
+                      </div>
+                   </button>
+                </div>
+
+             </div>
+          </div>
+       </div>
+
+       {/* Footer Info Lines */}
+       <div className="absolute inset-x-0 bottom-8 z-30">
+           <div className="max-w-[1360px] w-[calc(100%-48px)] mx-auto flex justify-between text-[11px] tracking-widest uppercase text-white/60 font-medium">
+               <div>[ LONDON, UK - GMT + 0 ]</div>
+               <div>[ BALI, ID - GMT + 7 ]</div>
+           </div>
+       </div>
+
     </header>
   );
 };
