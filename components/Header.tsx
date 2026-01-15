@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { NAV_LINKS } from '../constants';
 import { ArrowRight, Menu, X, Search } from 'lucide-react';
+import { useContact } from '../context/ContactContext';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { openContact } = useContact();
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -27,6 +29,11 @@ const Header: React.FC = () => {
 
   const handleNavClick = () => {
     setIsMenuOpen(false);
+  };
+
+  const handleContactClick = () => {
+    setIsMenuOpen(false);
+    openContact();
   };
 
   return (
@@ -70,7 +77,10 @@ const Header: React.FC = () => {
                       </a>
                    ))}
                 </nav>
-                <button className={`px-8 py-3.5 rounded-full bg-white text-[#1a2e29] text-[13px] font-bold hover:bg-[#e0e0e0] transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] tracking-wide active:scale-95 ${isScrolled ? 'py-2.5' : ''}`}>
+                <button 
+                  onClick={openContact}
+                  className={`px-8 py-3.5 rounded-full bg-white text-[#1a2e29] text-[13px] font-bold hover:bg-[#e0e0e0] transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] tracking-wide active:scale-95 ${isScrolled ? 'py-2.5' : ''}`}
+                >
                    Contact us
                 </button>
                 <button className={`w-[46px] h-[46px] rounded-full border transition-all duration-300 flex items-center justify-center text-white hover:bg-white/20 active:scale-95 ${
@@ -109,7 +119,10 @@ const Header: React.FC = () => {
               ))}
            </nav>
            <div className="mt-16 w-full max-w-xs mx-auto flex flex-col gap-4">
-              <button className="w-full py-4 rounded-full bg-white text-[#1a2e29] font-bold text-lg shadow-xl active:scale-95 transition-transform" onClick={handleNavClick}>
+              <button 
+                className="w-full py-4 rounded-full bg-white text-[#1a2e29] font-bold text-lg shadow-xl active:scale-95 transition-transform" 
+                onClick={handleContactClick}
+              >
                 Contact us
               </button>
            </div>

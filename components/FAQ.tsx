@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { FAQS } from '../constants';
 import { Plus, Minus, ArrowRight } from 'lucide-react';
+import { useContact } from '../context/ContactContext';
 
 const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const { openContact } = useContact();
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -34,7 +36,10 @@ const FAQ: React.FC = () => {
                    </div>
                 </div>
 
-                <button className="group w-fit pl-6 pr-2 py-2 bg-[#1a2e29] text-white rounded-full flex items-center gap-5 transition-all hover:bg-black active:scale-95 shadow-lg">
+                <button 
+                  onClick={openContact}
+                  className="group w-fit pl-6 pr-2 py-2 bg-[#1a2e29] text-white rounded-full flex items-center gap-5 transition-all hover:bg-black active:scale-95 shadow-lg"
+                >
                   <span className="text-[13px] font-medium tracking-wide">Book now</span>
                   <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-[#1a2e29] group-hover:scale-105 transition-transform">
                     <ArrowRight size={16} />

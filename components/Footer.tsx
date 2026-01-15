@@ -1,8 +1,11 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { NAV_LINKS } from '../constants';
+import { useContact } from '../context/ContactContext';
 
 const Footer: React.FC = () => {
+  const { openContact } = useContact();
+
   return (
     <footer className="bg-black text-white pt-16 md:pt-24 pb-8 md:pb-12 border-t border-white/5" id="footer">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
@@ -16,7 +19,10 @@ const Footer: React.FC = () => {
                 Begin Your Journey Into Inner Serenity.
               </h2>
               
-              <button className="w-fit bg-white rounded-full p-1.5 pl-6 pr-1.5 flex items-center gap-6 group hover:bg-gray-100 transition-colors shadow-lg active:scale-95">
+              <button 
+                onClick={openContact}
+                className="w-fit bg-white rounded-full p-1.5 pl-6 pr-1.5 flex items-center gap-6 group hover:bg-gray-100 transition-colors shadow-lg active:scale-95"
+              >
                  <span className="text-[#1a2e29] font-bold text-[15px] tracking-tight">Book now</span>
                  <div className="w-10 h-10 rounded-full bg-[#2e453e] text-white flex items-center justify-center group-hover:scale-105 transition-transform">
                     <ArrowRight size={18} />

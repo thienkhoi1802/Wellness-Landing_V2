@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, Star } from 'lucide-react';
+import { useContact } from '../context/ContactContext';
 
 const TREATMENTS_DATA = [
   { 
@@ -43,6 +44,7 @@ const TREATMENTS_DATA = [
 const Discover: React.FC = () => {
   const [activeId, setActiveId] = useState('t1');
   const activeItem = TREATMENTS_DATA.find(t => t.id === activeId) || TREATMENTS_DATA[0];
+  const { openContact } = useContact();
 
   return (
     <section className="py-16 md:py-32 border-t border-black/5 scroll-mt-20 md:scroll-mt-32" id="discover">
@@ -169,7 +171,10 @@ const Discover: React.FC = () => {
                               </p>
                               
                               <div className="flex flex-wrap items-center gap-6 md:gap-10">
-                                 <button className="flex items-center gap-3 bg-[#1a2e29] text-white pl-6 pr-2 py-2 rounded-full hover:bg-black transition-colors active:scale-95 group/btn shadow-lg">
+                                 <button 
+                                   onClick={(e) => { e.stopPropagation(); openContact(); }}
+                                   className="flex items-center gap-3 bg-[#1a2e29] text-white pl-6 pr-2 py-2 rounded-full hover:bg-black transition-colors active:scale-95 group/btn shadow-lg"
+                                 >
                                     <span className="text-[13px] font-medium tracking-wide">Join now</span>
                                     <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-[#1a2e29] group-hover/btn:scale-105 transition-transform">
                                       <ArrowRight size={16} />

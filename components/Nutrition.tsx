@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, Star } from 'lucide-react';
+import { useContact } from '../context/ContactContext';
 
 const TAGS = [
   'Sports nutrition', 'Hypertrophy coach', 'Macro counting', 'Meal prep',
@@ -7,6 +8,8 @@ const TAGS = [
 ];
 
 const Nutrition: React.FC = () => {
+  const { openContact } = useContact();
+
   return (
     <section className="py-16 md:py-32 border-t border-black/5 scroll-mt-20 md:scroll-mt-32" id="nutrition">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
@@ -74,7 +77,10 @@ const Nutrition: React.FC = () => {
                      </div>
 
                      {/* CTA Button */}
-                     <button className="mt-2 w-full bg-[#1a2e29]/90 backdrop-blur-md border border-white/10 text-white rounded-[20px] p-2 pl-6 pr-2 flex items-center justify-between hover:bg-[#152521] transition-all group/btn shadow-lg">
+                     <button 
+                       onClick={openContact}
+                       className="mt-2 w-full bg-[#1a2e29]/90 backdrop-blur-md border border-white/10 text-white rounded-[20px] p-2 pl-6 pr-2 flex items-center justify-between hover:bg-[#152521] transition-all group/btn shadow-lg"
+                     >
                         <span className="font-medium text-[14px] tracking-wide">Join Team</span>
                         <div className="w-10 h-10 rounded-[14px] bg-white text-[#1a2e29] flex items-center justify-center transition-transform group-hover/btn:translate-x-1">
                            <ArrowRight size={18} />
