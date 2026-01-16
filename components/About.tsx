@@ -1,5 +1,6 @@
 import React from 'react';
 import { Star, ArrowRight, ShieldCheck, Leaf } from 'lucide-react';
+import CmsImage from './CmsImage';
 
 const About: React.FC = () => {
   return (
@@ -16,16 +17,17 @@ const About: React.FC = () => {
           
           {/* COLUMN 1: Portrait & Rating */}
           <div className="lg:col-span-3 flex flex-col gap-6 order-3 lg:order-1">
-            <div className="relative aspect-[3/4] w-full rounded-[20px] md:rounded-[24px] overflow-hidden bg-[#e5e5e5] group cursor-pointer shadow-card hover:shadow-soft transition-all duration-500">
-               <div 
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                  style={{ backgroundImage: "url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=800&h=1000')" }}
-               />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <CmsImage
+              id="about_portrait"
+              defaultSrc="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=800&h=1000"
+              asBackground={true}
+              className="relative aspect-[3/4] w-full rounded-[20px] md:rounded-[24px] overflow-hidden bg-[#e5e5e5] group cursor-pointer shadow-card hover:shadow-soft transition-all duration-500"
+            >
+               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
                <div className="absolute bottom-6 left-6 right-6 text-white text-[14px] md:text-[15px] leading-relaxed font-medium tracking-wide">
                   “ This training transformed my physique completely. ”
                </div>
-            </div>
+            </CmsImage>
             
             <div className="flex items-center gap-3 text-ink pl-1">
                <Star className="w-5 h-5 fill-[#fea920] text-[#fea920]" />

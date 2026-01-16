@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Star } from 'lucide-react';
 import { useContact } from '../context/ContactContext';
+import CmsImage from './CmsImage';
 
 const TAGS = [
   'Sports nutrition', 'Hypertrophy coach', 'Macro counting', 'Meal prep',
@@ -43,15 +44,16 @@ const Nutrition: React.FC = () => {
             </div>
 
             {/* Expert Card */}
-            <div className="relative rounded-[24px] md:rounded-[32px] overflow-hidden aspect-[4/5] bg-[#e0e0e0] group shadow-card hover:shadow-soft transition-all duration-500">
-               <div 
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                  style={{ backgroundImage: "url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=800&h=1000')" }}
-               />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <CmsImage
+               id="nutrition_coach"
+               defaultSrc="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=800&h=1000"
+               asBackground={true}
+               className="relative rounded-[24px] md:rounded-[32px] overflow-hidden aspect-[4/5] bg-[#e0e0e0] group shadow-card hover:shadow-soft transition-all duration-500"
+            >
+               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
                {/* Card Content */}
-               <div className="absolute inset-0 p-6 md:p-10 flex flex-col justify-end text-white">
+               <div className="absolute inset-0 p-6 md:p-10 flex flex-col justify-end text-white pointer-events-none">
                   <div className="mb-6 md:mb-8 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
                      <h3 className="text-[28px] md:text-[32px] font-normal leading-tight mb-2">Coach Mike T.</h3>
                      <p className="text-white/60 text-[14px] md:text-[15px] mb-4">Head Performance Coach</p>
@@ -65,7 +67,7 @@ const Nutrition: React.FC = () => {
                     “ Consistency in the kitchen builds the foundation for victory in the gym. ”
                   </p>
 
-                  <div className="flex flex-col gap-5 md:gap-6">
+                  <div className="flex flex-col gap-5 md:gap-6 pointer-events-auto">
                      {/* Slots Progress */}
                      <div>
                         <div className="text-[10px] font-bold tracking-widest uppercase text-white/80 mb-2 md:mb-3">
@@ -88,17 +90,17 @@ const Nutrition: React.FC = () => {
                      </button>
                   </div>
                </div>
-            </div>
+            </CmsImage>
           </div>
 
           {/* RIGHT COLUMN */}
-          <div className="order-1 lg:order-2 relative rounded-[24px] md:rounded-[32px] overflow-hidden h-[500px] lg:h-full bg-[#f0efe9] group shadow-card">
-             {/* Food Hero Image */}
-             <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=1000&h=1200')" }}
-             />
-             <div className="absolute inset-0 bg-black/10" />
+          <CmsImage
+             id="nutrition_food"
+             defaultSrc="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=1000&h=1200"
+             asBackground={true}
+             className="order-1 lg:order-2 relative rounded-[24px] md:rounded-[32px] overflow-hidden h-[500px] lg:h-full bg-[#f0efe9] group shadow-card"
+          >
+             <div className="absolute inset-0 bg-black/10 pointer-events-none" />
 
              {/* Floating Data Widget */}
              <div className="absolute bottom-6 left-6 right-6 md:top-12 md:bottom-auto md:left-auto md:right-12 md:w-[360px] bg-white/95 backdrop-blur-xl rounded-[20px] md:rounded-[24px] p-6 md:p-8 shadow-soft animate-fade-in hover:scale-[1.02] transition-transform duration-300">
@@ -134,8 +136,7 @@ const Nutrition: React.FC = () => {
                    </div>
                 </div>
              </div>
-
-          </div>
+          </CmsImage>
 
         </div>
       </div>

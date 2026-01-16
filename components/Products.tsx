@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Star, ShoppingBag, ArrowRight, ArrowLeft, Plus, Check } from 'lucide-react';
+import CmsImage from './CmsImage';
 
 const CATEGORIES = [
   'Whey Protein', 'Pre-Workout', 'Creatine', 'Vitamins', 'Gear', 'BCAA'
@@ -224,18 +225,19 @@ const Products: React.FC = () => {
         <div className={`flex flex-col lg:grid lg:grid-cols-12 gap-6 transition-opacity duration-300 ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
            
            {/* Item 0: FEATURED (Top on Mobile, Left Half on Desktop) */}
-           <div className="lg:col-span-6 xl:col-span-6 relative aspect-[16/9] md:aspect-[16/9] lg:h-auto lg:aspect-auto rounded-[24px] md:rounded-[32px] overflow-hidden bg-white group cursor-pointer shadow-card hover:shadow-2xl transition-all duration-500">
-              <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url('${currentProducts[0].image}')` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+           <CmsImage
+              id={`product_${currentProducts[0].id}_main`}
+              defaultSrc={currentProducts[0].image}
+              asBackground={true}
+              className="lg:col-span-6 xl:col-span-6 relative aspect-[16/9] md:aspect-[16/9] lg:h-auto lg:aspect-auto rounded-[24px] md:rounded-[32px] overflow-hidden bg-white group cursor-pointer shadow-card hover:shadow-2xl transition-all duration-500"
+           >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
               
               <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-white/20 backdrop-blur-md border border-white/20 text-white text-[10px] md:text-[11px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-wider">
                  Best Seller
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-10 flex flex-col gap-2 md:gap-4">
+              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-10 flex flex-col gap-2 md:gap-4 pointer-events-auto">
                  <div className="flex justify-between items-end text-white">
                     <div>
                        <div className="text-white/70 text-xs md:text-sm mb-1">{currentProducts[0].category}</div>
@@ -272,7 +274,7 @@ const Products: React.FC = () => {
                     {addedItems[currentProducts[0].id] ? 'Added' : 'Add to Cart'}
                  </button>
               </div>
-           </div>
+           </CmsImage>
 
            {/* Items 1-4: SLIDER on Mobile, GRID on Desktop */}
            <div className="lg:col-span-6 xl:col-span-6">
@@ -284,13 +286,15 @@ const Products: React.FC = () => {
                         
                         {/* Image Area */}
                         <div className="relative w-full aspect-square rounded-[16px] overflow-hidden bg-[#f4f4f4] mb-3">
-                          <div 
-                              className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                              style={{ backgroundImage: `url('${product.image}')` }}
+                          <CmsImage
+                             id={`product_${product.id}`}
+                             defaultSrc={product.image}
+                             asBackground={true}
+                             className="absolute inset-0 group-hover:scale-110 transition-transform duration-500"
                           />
                           <button 
                             onClick={(e) => handleAddToCart(e, product.id)}
-                            className={`absolute bottom-2 right-2 md:bottom-3 md:right-3 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center shadow-md md:translate-y-12 md:group-hover:translate-y-0 transition-all duration-300 ${
+                            className={`absolute bottom-2 right-2 md:bottom-3 md:right-3 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center shadow-md md:translate-y-12 md:group-hover:translate-y-0 transition-all duration-300 z-10 ${
                               addedItems[product.id] 
                               ? 'bg-[#cfe7a7] text-[#1a2e29]' 
                               : 'bg-white text-ink hover:bg-[#1a2e29] hover:text-white'

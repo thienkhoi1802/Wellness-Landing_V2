@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowLeft, ArrowRight, Quote } from 'lucide-react';
+import CmsImage from './CmsImage';
 
 const TESTIMONIALS = [
   {
@@ -101,11 +102,14 @@ const Testimonial: React.FC = () => {
             
               {/* Left: Portrait Image (Desktop Only) */}
               <div className={`hidden md:block relative rounded-[32px] overflow-hidden bg-[#111] transition-opacity duration-500 shadow-lg ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
-                  <div 
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${current.image}')` }}
+                  <CmsImage
+                     key={current.id}
+                     id={`testimonial_user_${current.id}`}
+                     defaultSrc={current.image}
+                     asBackground={true}
+                     className="absolute inset-0"
                   />
-                  <div className="absolute inset-0 bg-black/5" />
+                  <div className="absolute inset-0 bg-black/5 pointer-events-none" />
               </div>
 
               {/* Right: Quote Card */}
@@ -121,9 +125,12 @@ const Testimonial: React.FC = () => {
 
                   {/* User Info (Mobile Optimized) */}
                   <div className="flex items-center gap-3 md:gap-5 mt-6 md:mt-12 pt-6 border-t border-[#1a2e29]/10 md:border-none md:pt-0">
-                    <div 
-                        className="w-10 h-10 md:w-14 md:h-14 rounded-full md:rounded-2xl bg-black/10 bg-cover bg-center shrink-0"
-                        style={{ backgroundImage: `url('${current.image}')` }}
+                    <CmsImage
+                        key={current.id + "_mobile"}
+                        id={`testimonial_user_${current.id}_mobile`}
+                        defaultSrc={current.image}
+                        asBackground={true}
+                        className="w-10 h-10 md:w-14 md:h-14 rounded-full md:rounded-2xl bg-black/10 shrink-0"
                     />
                     <div className="flex flex-col">
                         <span className="text-[#1a2e29] font-bold text-[13px] md:text-[16px]">{current.name}</span>

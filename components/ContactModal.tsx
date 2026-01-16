@@ -8,10 +8,17 @@ const ContactModal: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
 
+  // Form State
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    goal: '',
+    message: ''
+  });
+
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
-      // Small delay to allow render before animation starts
       requestAnimationFrame(() => setIsAnimating(true));
       document.body.style.overflow = 'hidden';
     } else {
@@ -22,17 +29,45 @@ const ContactModal: React.FC = () => {
     }
   }, [isOpen]);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormState('submitting');
-    // Simulate API call
+    
+    // Simulate Network Request
     setTimeout(() => {
+      // --- SAVE DATA LOGIC ---
+      const newSubmission = {
+        id: Date.now().toString(),
+        submittedAt: new Date().toISOString(),
+        ...formData
+      };
+
+      // Get existing submissions or initialize empty array
+      const existingData = localStorage.getItem('contact_submissions');
+      const submissions = existingData ? JSON.parse(existingData) : [];
+      
+      // Add new submission
+      submissions.unshift(newSubmission); // Add to top
+      
+      // Save back to LocalStorage
+      localStorage.setItem('contact_submissions', JSON.stringify(submissions));
+      // -----------------------
+
       setFormState('success');
+      
+      // Reset form
+      setFormData({ name: '', email: '', goal: '', message: '' });
+
       setTimeout(() => {
         closeContact();
-        setTimeout(() => setFormState('idle'), 300); // Reset after close
+        setTimeout(() => setFormState('idle'), 300); 
       }, 2000);
-    }, 1500);
+    }, 1000);
   };
 
   if (!isVisible) return null;
@@ -40,18 +75,14 @@ const ContactModal: React.FC = () => {
   return (
     <div className={`fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 transition-all duration-300 ${isAnimating ? 'backdrop-blur-md bg-black/60' : 'backdrop-blur-none bg-black/0'}`}>
       
-      {/* Click outside to close */}
       <div className="absolute inset-0" onClick={closeContact} />
 
-      {/* Modal Content */}
       <div 
         className={`relative w-full max-w-[500px] bg-[#0d1211] border border-white/10 rounded-[32px] overflow-hidden shadow-2xl transform transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isAnimating ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-8'}`}
       >
-        {/* Decorative Background */}
         <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#cfe7a7]/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-[#1a2e29]/20 rounded-full blur-[60px] translate-y-1/3 -translate-x-1/3 pointer-events-none" />
 
-        {/* Close Button */}
         <button 
           onClick={closeContact}
           className="absolute top-6 right-6 p-2 rounded-full bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-colors z-20"
@@ -67,7 +98,7 @@ const ContactModal: React.FC = () => {
                 <CheckCircle size={40} />
               </div>
               <h3 className="text-2xl font-medium text-white mb-2">Message Sent!</h3>
-              <p className="text-white/60">We'll get back to you within 24 hours.</p>
+              <p className="text-white/60">We've saved your request securely.</p>
             </div>
           ) : (
             <>
@@ -85,6 +116,8 @@ const ContactModal: React.FC = () => {
                     required
                     type="text" 
                     id="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     placeholder="John Doe" 
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#cfe7a7]/50 focus:bg-white/10 transition-all"
                   />
@@ -96,6 +129,8 @@ const ContactModal: React.FC = () => {
                     required
                     type="email" 
                     id="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="john@example.com" 
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#cfe7a7]/50 focus:bg-white/10 transition-all"
                   />
@@ -105,6 +140,8 @@ const ContactModal: React.FC = () => {
                   <label htmlFor="goal" className="text-[11px] font-bold uppercase tracking-wider text-white/40 ml-1">Primary Goal</label>
                   <select 
                     id="goal"
+                    value={formData.goal}
+                    onChange={handleChange}
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#cfe7a7]/50 focus:bg-white/10 transition-all appearance-none cursor-pointer"
                   >
                     <option value="" className="bg-[#0d1211]">Select a goal...</option>
@@ -120,6 +157,8 @@ const ContactModal: React.FC = () => {
                   <textarea 
                     id="message"
                     rows={3}
+                    value={formData.message}
+                    onChange={handleChange}
                     placeholder="Tell us about your current fitness level..." 
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#cfe7a7]/50 focus:bg-white/10 transition-all resize-none"
                   />

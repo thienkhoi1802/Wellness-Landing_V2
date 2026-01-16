@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NAV_LINKS } from '../constants';
 import { ArrowRight, Menu, X, Search, ChevronDown, ArrowDown } from 'lucide-react';
 import { useContact } from '../context/ContactContext';
+import CmsImage from './CmsImage';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,16 +39,16 @@ const Header: React.FC = () => {
 
   return (
     <header className="relative h-[100dvh] min-h-[600px] max-h-[1080px] bg-[#0d1211] overflow-hidden text-white selection:bg-brand-green selection:text-ink" id="top">
-       {/* Background Image & Gradient */}
-       <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop" 
-            alt="Cinematic Athletic Training" 
-            className="w-full h-full object-cover opacity-90 object-center animate-fade-in"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
-       </div>
+       {/* Background Image & Gradient managed by CMS */}
+       <CmsImage 
+          id="hero_bg"
+          defaultSrc="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop"
+          asBackground={true}
+          className="absolute inset-0 z-0"
+       >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent pointer-events-none" />
+       </CmsImage>
 
        {/* Top Navigation Bar - Sticky Fixed Position */}
        <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${

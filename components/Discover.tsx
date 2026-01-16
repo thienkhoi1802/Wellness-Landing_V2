@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ArrowRight, Star } from 'lucide-react';
 import { useContact } from '../context/ContactContext';
+import CmsImage from './CmsImage';
+import { useCms } from '../context/CmsContext';
 
 const TREATMENTS_DATA = [
   { 
@@ -45,6 +47,10 @@ const Discover: React.FC = () => {
   const [activeId, setActiveId] = useState('t1');
   const activeItem = TREATMENTS_DATA.find(t => t.id === activeId) || TREATMENTS_DATA[0];
   const { openContact } = useContact();
+  const { getImage } = useCms();
+
+  // We need to fetch the current CMS image URL for the active item to use in the background style
+  // However, CmsImage handles this internally. For the "Left Column", we can just use CmsImage as a wrapper.
 
   return (
     <section className="py-16 md:py-32 border-t border-black/5 scroll-mt-20 md:scroll-mt-32" id="discover">
@@ -78,12 +84,13 @@ const Discover: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-start">
           
           {/* Left Column: Hero Image & Data Card (Hidden on Mobile) */}
-          <div className="hidden lg:block relative w-full aspect-[3/4] lg:h-[720px] lg:aspect-auto rounded-[32px] overflow-hidden bg-[#f0f0f0] shadow-2xl">
-             {/* Background Image */}
-             <div 
-               className="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out"
-               style={{ backgroundImage: `url('${activeItem.image}')` }}
-             />
+          <CmsImage
+             key={activeId} // Re-render when activeId changes to update the image
+             id={`discover_${activeItem.id}`}
+             defaultSrc={activeItem.image}
+             asBackground={true}
+             className="hidden lg:block relative w-full aspect-[3/4] lg:h-[720px] lg:aspect-auto rounded-[32px] overflow-hidden bg-[#f0f0f0] shadow-2xl"
+          >
              
              {/* Floating Data Card */}
              <div className="absolute bottom-8 left-8 right-8 bg-white/95 backdrop-blur-xl rounded-[24px] p-8 shadow-soft animate-fade-in-up">
@@ -131,7 +138,7 @@ const Discover: React.FC = () => {
                    </div>
                 </div>
              </div>
-          </div>
+          </CmsImage>
 
           {/* Right Column: Step List */}
           <div className="flex flex-col py-0 md:py-4">
@@ -166,13 +173,13 @@ const Discover: React.FC = () => {
                           isActive ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                         }`}>
                            <div className="overflow-hidden">
-                              {/* Mobile Image Insertion: Visible only on small screens when active */}
+                              {/* Mobile Image Insertion with CMS */}
                               <div className="block lg:hidden w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#f4f4f4] mb-6">
-                                <img 
-                                  src={item.image} 
+                                <CmsImage
+                                  id={`discover_${item.id}_mobile`}
+                                  defaultSrc={item.image}
                                   alt={item.name}
-                                  loading="lazy"
-                                  className="w-full h-full object-cover"
+                                  className="w-full h-full"
                                 />
                               </div>
 
