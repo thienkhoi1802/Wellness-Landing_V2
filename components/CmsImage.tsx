@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useCms } from '../context/CmsContext';
-import { Camera, Loader2 } from 'lucide-react';
+import { Camera, Loader2, ImagePlus } from 'lucide-react';
 
 interface CmsImageProps {
   id: string;
@@ -10,7 +10,7 @@ interface CmsImageProps {
   asBackground?: boolean;
   children?: React.ReactNode; 
   imgStyle?: React.CSSProperties;
-  editBtnPosition?: string; // New prop to customize button placement (e.g. "top-24 right-4")
+  editBtnPosition?: string; // Customize button placement
 }
 
 const CmsImage: React.FC<CmsImageProps> = ({ 
@@ -21,10 +21,11 @@ const CmsImage: React.FC<CmsImageProps> = ({
   asBackground = false,
   children,
   imgStyle,
-  editBtnPosition = "top-4 right-4" // Default to top-right corner
+  editBtnPosition = "top-4 right-4" 
 }) => {
   const { isEditMode, getImage, updateImage } = useCms();
   const [isLoading, setIsLoading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const currentSrc = getImage(id, defaultSrc);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,34 +34,44 @@ const CmsImage: React.FC<CmsImageProps> = ({
       await new Promise(resolve => setTimeout(resolve, 500));
       updateImage(id, e.target.files[0]);
       setIsLoading(false);
+      // Reset input
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
-  // Overlay for Edit Mode
+  const triggerUpload = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation(); // Stop click from bubbling to parent elements (like links or cards)
+    fileInputRef.current?.click();
+  };
+
+  // Overlay for Edit Mode - High Visibility
   const EditOverlay = () => (
-    <div 
-      className="absolute inset-0 z-[90] pointer-events-none group/edit"
-    >
-      {/* Dashed Border Indicator */}
-      <div className="absolute inset-0 border-4 border-brand-green/60 border-dashed rounded-lg opacity-60" />
+    <div className="absolute inset-0 z-[100] pointer-events-none">
+      {/* High Visibility Border */}
+      <div className="absolute inset-0 border-4 border-blue-500/60 border-dashed bg-blue-500/5 backdrop-blur-[1px] animate-pulse" />
       
-      {/* Clickable Button/Label */}
-      <label
-        className={`absolute ${editBtnPosition} pointer-events-auto cursor-pointer bg-white text-[#1a2e29] p-3 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:scale-110 hover:bg-brand-green active:scale-95 transition-all flex items-center gap-2 z-[100] border-2 border-white/20`}
+      {/* Explicit Button Trigger */}
+      <button
+        onClick={triggerUpload}
+        className={`absolute ${editBtnPosition} pointer-events-auto cursor-pointer bg-blue-600 text-white px-3 py-2 rounded-lg shadow-xl hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 border border-white/20`}
         title="Change Image"
-        onClick={(e) => e.stopPropagation()} // Prevent triggering parent clicks (like links)
+        type="button"
       >
-        {isLoading ? <Loader2 size={18} className="animate-spin" /> : <Camera size={18} />}
-        <span className="hidden md:block text-xs font-extrabold uppercase tracking-wider">
-          {isLoading ? '...' : 'Edit'}
+        {isLoading ? <Loader2 size={16} className="animate-spin" /> : <ImagePlus size={16} />}
+        <span className="text-[10px] font-bold uppercase tracking-wider">
+          {isLoading ? 'Uploading...' : 'Change Photo'}
         </span>
-        <input 
-          type="file" 
-          onChange={handleFileChange} 
-          accept="image/*" 
-          className="hidden" 
-        />
-      </label>
+      </button>
+      
+      {/* Hidden Input */}
+      <input 
+        type="file" 
+        ref={fileInputRef} 
+        onChange={handleFileChange} 
+        accept="image/*" 
+        className="hidden" 
+      />
     </div>
   );
 
