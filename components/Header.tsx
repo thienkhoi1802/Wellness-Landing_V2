@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NAV_LINKS } from '../constants';
-import { ArrowRight, Menu, X, Search, ChevronDown } from 'lucide-react';
+import { ArrowRight, Menu, X, Search, ChevronDown, ArrowDown } from 'lucide-react';
 import { useContact } from '../context/ContactContext';
 
 const Header: React.FC = () => {
@@ -137,8 +137,8 @@ const Header: React.FC = () => {
        </div>
 
        {/* Main Content Area */}
-       <div className="absolute inset-x-0 bottom-20 md:bottom-24 z-30">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-12">
+       <div className="absolute inset-x-0 bottom-24 md:bottom-28 z-30 pointer-events-none">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-12 pointer-events-auto">
              <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-8 md:gap-12 items-end">
                 
                 {/* Headline */}
@@ -168,23 +168,26 @@ const Header: React.FC = () => {
           </div>
        </div>
        
-       {/* Scroll Hint Button - Bottom Center */}
+       {/* New Optimized Scroll Button - Bottom Right */}
        <a 
           href="#about"
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-3 group cursor-pointer"
+          className="absolute bottom-6 right-6 md:bottom-12 md:right-12 z-30 group flex items-center justify-center"
           aria-label="Scroll down"
        >
-          <div className="w-[26px] h-[42px] border-[1.5px] border-white/30 rounded-full flex justify-center p-1.5 transition-colors group-hover:border-white/80">
-            <div className="w-1 h-1.5 bg-white rounded-full animate-bounce"></div>
+          <div className="relative w-14 h-14 md:w-16 md:h-16 flex items-center justify-center">
+             {/* Rotating text or border could go here, for now a clean circle */}
+             <div className="absolute inset-0 rounded-full border border-white/20 bg-black/20 backdrop-blur-sm group-hover:bg-white transition-all duration-500 group-hover:scale-110"></div>
+             <ArrowDown className="relative z-10 text-white w-5 h-5 md:w-6 md:h-6 group-hover:text-[#1a2e29] transition-colors duration-500 animate-bounce" strokeWidth={1.5} />
           </div>
-          <ChevronDown size={18} className="text-white/30 animate-pulse group-hover:text-white/80 transition-colors" />
        </a>
 
-       {/* Footer Info Lines */}
-       <div className="absolute inset-x-0 bottom-6 md:bottom-8 z-30 pointer-events-none hidden lg:block">
-           <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex justify-between text-[9px] md:text-[11px] tracking-widest uppercase text-white/50 font-medium">
-               <div>[ LONDON, UK - GMT + 0 ]</div>
-               <div>[ BALI, ID - GMT + 7 ]</div>
+       {/* Footer Info Lines - Left Aligned Only to avoid overlap */}
+       <div className="absolute inset-x-0 bottom-6 md:bottom-12 z-20 pointer-events-none hidden lg:block">
+           <div className="max-w-[1440px] mx-auto px-6 md:px-12">
+               <div className="flex flex-col gap-1 text-[9px] md:text-[11px] tracking-widest uppercase text-white/40 font-medium">
+                   <div>[ LONDON, UK - GMT + 0 ]</div>
+                   <div>[ BALI, ID - GMT + 7 ]</div>
+               </div>
            </div>
        </div>
 
