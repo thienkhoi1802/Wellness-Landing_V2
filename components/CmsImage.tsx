@@ -48,17 +48,23 @@ const CmsImage: React.FC<CmsImageProps> = ({
   // Overlay for Edit Mode
   const EditOverlay = () => (
     <div 
-      onClick={triggerUpload}
-      className="absolute inset-0 bg-black/40 z-[60] flex items-center justify-center cursor-pointer border-4 border-brand-green/80 border-dashed m-1 rounded-lg backdrop-blur-[2px] transition-all hover:bg-black/60 group animate-fade-in"
+      className="absolute inset-0 z-[60] border-4 border-brand-green/80 border-dashed m-1 rounded-lg pointer-events-none transition-all duration-300 group"
     >
-      <div className="flex flex-col items-center text-white gap-2 pointer-events-none">
-        <div className="p-3 bg-brand-green rounded-full text-black shadow-lg group-hover:scale-110 transition-transform duration-300">
-           {isLoading ? <Loader2 size={24} className="animate-spin" /> : <Camera size={24} />}
-        </div>
-        <span className="text-xs font-bold uppercase tracking-wider bg-black/60 px-2 py-1 rounded shadow-sm">
-          {isLoading ? 'Processing...' : 'Change Image'}
+      {/* Dimmer - only visible on hover of the container area to indicate selection */}
+      <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" /> 
+      
+      {/* Clickable Button - Positioned Center Right to avoid headers (top) and content (center/bottom) */}
+      <button
+        onClick={triggerUpload}
+        className="absolute top-1/2 right-4 -translate-y-1/2 pointer-events-auto bg-white text-black p-3 rounded-full shadow-xl hover:scale-110 active:scale-95 transition-all flex items-center gap-2 z-50 hover:bg-brand-green"
+        title="Change Image"
+      >
+        {isLoading ? <Loader2 size={20} className="animate-spin" /> : <Camera size={20} />}
+        <span className="hidden md:block text-xs font-bold uppercase tracking-wide pr-1">
+          {isLoading ? '...' : 'Edit'}
         </span>
-      </div>
+      </button>
+      
       <input 
         type="file" 
         ref={fileInputRef} 
