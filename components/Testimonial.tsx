@@ -61,79 +61,81 @@ const Testimonial: React.FC = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 scroll-mt-20 md:scroll-mt-32" id="testimonial">
+    <section className="py-12 md:py-24 scroll-mt-20 md:scroll-mt-32" id="testimonial">
       {/* Container with Dark Green Background and Rounded Corners */}
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        <div className="bg-[#1a2e29] rounded-[32px] md:rounded-[48px] p-6 md:p-16 text-white relative shadow-2xl overflow-hidden">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-12">
+        <div className="bg-[#1a2e29] rounded-[24px] md:rounded-[48px] p-6 md:p-16 text-white relative shadow-2xl overflow-hidden">
             
             {/* Background Texture */}
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
             {/* Header Row */}
-            <div className="flex justify-between items-center text-white/40 text-[10px] md:text-xs tracking-widest uppercase mb-8 md:mb-20 relative z-10">
-            <div>// SUCCESS STORIES</div>
-            <div>[ 06 ]</div>
+            <div className="flex justify-between items-center text-white/40 text-[10px] md:text-xs tracking-widest uppercase mb-6 md:mb-20 relative z-10">
+              <div>// SUCCESS STORIES</div>
+              <div>[ 06 ]</div>
             </div>
 
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12 mb-10 md:mb-16 relative z-10">
-            <h2 className="text-[28px] md:text-[52px] leading-[1.05] tracking-[-1px] font-normal text-white max-w-[620px]">
-                Real results from our dedicated athletes
-            </h2>
-            
-            <div className="flex gap-4 self-end md:self-auto">
-                <button 
-                onClick={handlePrev}
-                className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all active:scale-95 text-white/80"
-                >
-                <ArrowLeft className="w-5 h-5 md:w-[22px] md:h-[22px]" />
-                </button>
-                <button 
-                onClick={handleNext}
-                className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all active:scale-95 text-white/80"
-                >
-                <ArrowRight className="w-5 h-5 md:w-[22px] md:h-[22px]" />
-                </button>
-            </div>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-12 mb-8 md:mb-16 relative z-10">
+              <h2 className="text-[28px] md:text-[52px] leading-[1.05] tracking-[-1px] font-normal text-white max-w-[620px]">
+                  Real results from our dedicated athletes
+              </h2>
+              
+              <div className="flex gap-3 self-end md:self-auto">
+                  <button 
+                  onClick={handlePrev}
+                  className="w-10 h-10 md:w-14 md:h-14 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all active:scale-95 text-white/80"
+                  >
+                  <ArrowLeft className="w-4 h-4 md:w-[22px] md:h-[22px]" />
+                  </button>
+                  <button 
+                  onClick={handleNext}
+                  className="w-10 h-10 md:w-14 md:h-14 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all active:scale-95 text-white/80"
+                  >
+                  <ArrowRight className="w-4 h-4 md:w-[22px] md:h-[22px]" />
+                  </button>
+              </div>
             </div>
 
             {/* Content Area */}
-            <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] xl:grid-cols-[420px_1fr] gap-6 md:gap-8 items-stretch min-h-[400px] relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] xl:grid-cols-[420px_1fr] gap-6 md:gap-8 items-stretch md:min-h-[400px] relative z-10">
             
-            {/* Left: Portrait Image */}
-            <div className={`relative rounded-[24px] md:rounded-[32px] overflow-hidden bg-[#111] h-[280px] lg:h-auto transition-opacity duration-500 shadow-lg ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
-                <div 
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: `url('${current.image}')` }}
-                />
-                <div className="absolute inset-0 bg-black/5" />
-            </div>
+              {/* Left: Portrait Image (Desktop Only) */}
+              <div className={`hidden md:block relative rounded-[32px] overflow-hidden bg-[#111] transition-opacity duration-500 shadow-lg ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
+                  <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url('${current.image}')` }}
+                  />
+                  <div className="absolute inset-0 bg-black/5" />
+              </div>
 
-            {/* Right: Quote Card */}
-            <div className={`relative rounded-[24px] md:rounded-[32px] bg-[#e9f5d3] p-8 md:p-16 flex flex-col justify-between transition-all duration-500 transform shadow-lg ${isAnimating ? 'opacity-80 translate-x-4' : 'opacity-100 translate-x-0'}`}>
-                
-                <div className="flex flex-col gap-6 md:gap-8">
-                <Quote className="text-[#1a2e29] fill-[#1a2e29] w-8 h-8 md:w-12 md:h-12 opacity-20" />
-                <p className="text-[20px] md:text-[40px] leading-[1.3] md:leading-[1.15] tracking-[-0.5px] text-[#1a2e29] font-normal">
-                    {current.quote}”
-                </p>
-                </div>
+              {/* Right: Quote Card */}
+              <div className={`relative rounded-[20px] md:rounded-[32px] bg-[#e9f5d3] p-6 md:p-16 flex flex-col justify-between transition-all duration-500 transform shadow-lg ${isAnimating ? 'opacity-80 translate-x-4' : 'opacity-100 translate-x-0'}`}>
+                  
+                  {/* Quote Content */}
+                  <div className="flex flex-col gap-4 md:gap-8">
+                    <Quote className="text-[#1a2e29] fill-[#1a2e29] w-6 h-6 md:w-12 md:h-12 opacity-20" />
+                    <p className="text-[18px] md:text-[40px] leading-[1.4] md:leading-[1.15] tracking-[-0.3px] md:tracking-[-0.5px] text-[#1a2e29] font-normal">
+                        {current.quote}”
+                    </p>
+                  </div>
 
-                <div className="flex items-center gap-4 md:gap-5 mt-8 md:mt-12">
-                <div 
-                    className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-black/10 bg-cover bg-center"
-                    style={{ backgroundImage: `url('${current.image}')` }}
-                />
-                <div className="flex flex-col">
-                    <span className="text-[#1a2e29] font-semibold text-[14px] md:text-[16px]">{current.name}</span>
-                    <span className="text-[#1a2e29]/60 text-[12px] md:text-[14px]">{current.role}</span>
-                </div>
-                </div>
+                  {/* User Info (Mobile Optimized) */}
+                  <div className="flex items-center gap-3 md:gap-5 mt-6 md:mt-12 pt-6 border-t border-[#1a2e29]/10 md:border-none md:pt-0">
+                    <div 
+                        className="w-10 h-10 md:w-14 md:h-14 rounded-full md:rounded-2xl bg-black/10 bg-cover bg-center shrink-0"
+                        style={{ backgroundImage: `url('${current.image}')` }}
+                    />
+                    <div className="flex flex-col">
+                        <span className="text-[#1a2e29] font-bold text-[13px] md:text-[16px]">{current.name}</span>
+                        <span className="text-[#1a2e29]/60 text-[11px] md:text-[14px]">{current.role}</span>
+                    </div>
+                  </div>
 
-            </div>
+              </div>
             </div>
 
             {/* Counter */}
-            <div className="mt-6 md:absolute md:bottom-16 md:left-16 text-white/40 font-medium text-base md:text-lg tracking-widest text-center md:text-left z-10">
+            <div className="mt-4 md:absolute md:bottom-16 md:left-16 text-white/40 font-medium text-xs md:text-lg tracking-widest text-center md:text-left z-10">
             {currentIndex + 1} <span className="text-white/20">/</span> {total}
             </div>
         </div>
