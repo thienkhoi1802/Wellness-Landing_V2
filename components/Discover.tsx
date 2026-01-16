@@ -166,6 +166,16 @@ const Discover: React.FC = () => {
                           isActive ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                         }`}>
                            <div className="overflow-hidden">
+                              {/* Mobile Image Insertion: Visible only on small screens when active */}
+                              <div className="block lg:hidden w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#f4f4f4] mb-6">
+                                <img 
+                                  src={item.image} 
+                                  alt={item.name}
+                                  loading="lazy"
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+
                               <p className="text-[15px] md:text-[16px] leading-[1.7] text-ink/60 max-w-[500px] mb-8 md:mb-10">
                                 {item.desc}
                               </p>

@@ -171,7 +171,9 @@ const Header: React.FC = () => {
        {/* New Optimized Scroll Button - Bottom Right */}
        <a 
           href="#about"
-          className="absolute bottom-6 right-6 md:bottom-12 md:right-12 z-30 group flex items-center justify-center"
+          className={`absolute bottom-6 right-6 md:bottom-12 md:right-12 z-30 group flex items-center justify-center transition-all duration-500 ${
+             isScrolled ? 'opacity-0 translate-y-10 pointer-events-none' : 'opacity-100 translate-y-0'
+          }`}
           aria-label="Scroll down"
        >
           <div className="relative w-14 h-14 md:w-16 md:h-16 flex items-center justify-center">

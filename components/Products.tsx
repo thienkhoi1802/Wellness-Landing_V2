@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Star, ShoppingBag, ArrowRight, ArrowLeft, Plus } from 'lucide-react';
+import { Search, Star, ShoppingBag, ArrowRight, ArrowLeft, Plus, Check } from 'lucide-react';
 
 const CATEGORIES = [
   'Whey Protein', 'Pre-Workout', 'Creatine', 'Vitamins', 'Gear', 'BCAA'
@@ -136,6 +136,8 @@ const PRODUCT_PAGES = [
 const Products: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  // Using a map to track added state for specific products
+  const [addedItems, setAddedItems] = useState<Record<string, boolean>>({});
 
   const totalPages = PRODUCT_PAGES.length;
   const currentProducts = PRODUCT_PAGES[currentPage];
@@ -151,6 +153,18 @@ const Products: React.FC = () => {
       });
       setIsAnimating(false);
     }, 200);
+  };
+
+  const handleAddToCart = (e: React.MouseEvent, productId: string) => {
+    e.stopPropagation();
+    if (addedItems[productId]) return;
+
+    setAddedItems(prev => ({ ...prev, [productId]: true }));
+    
+    // Reset after 2 seconds
+    setTimeout(() => {
+      setAddedItems(prev => ({ ...prev, [productId]: false }));
+    }, 2000);
   };
 
   return (
@@ -234,14 +248,28 @@ const Products: React.FC = () => {
                     <p className="text-white/80 text-[15px] mb-6 pt-2 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
                        {currentProducts[0].desc}
                     </p>
-                    <button className="w-full py-4 bg-white text-[#1a2e29] font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#cfe7a7] transition-colors shadow-lg active:scale-95">
-                       <ShoppingBag size={18} />
-                       Add to Cart
+                    <button 
+                      onClick={(e) => handleAddToCart(e, currentProducts[0].id)}
+                      className={`w-full py-4 font-bold rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 ${
+                        addedItems[currentProducts[0].id] 
+                        ? 'bg-[#cfe7a7] text-[#1a2e29]' 
+                        : 'bg-white text-[#1a2e29] hover:bg-[#cfe7a7]'
+                      }`}
+                    >
+                       {addedItems[currentProducts[0].id] ? <Check size={18} /> : <ShoppingBag size={18} />}
+                       {addedItems[currentProducts[0].id] ? 'Added to Cart' : 'Add to Cart'}
                     </button>
                  </div>
                  
-                 <button className="md:hidden mt-2 w-full py-3 bg-white text-[#1a2e29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 active:scale-95 shadow-lg">
-                    Add to Cart
+                 <button 
+                    onClick={(e) => handleAddToCart(e, currentProducts[0].id)}
+                    className={`md:hidden mt-2 w-full py-3 font-bold text-sm rounded-xl flex items-center justify-center gap-2 active:scale-95 shadow-lg transition-colors ${
+                       addedItems[currentProducts[0].id] 
+                       ? 'bg-[#cfe7a7] text-[#1a2e29]' 
+                       : 'bg-white text-[#1a2e29]'
+                    }`}
+                 >
+                    {addedItems[currentProducts[0].id] ? 'Added' : 'Add to Cart'}
                  </button>
               </div>
            </div>
@@ -260,8 +288,15 @@ const Products: React.FC = () => {
                               className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                               style={{ backgroundImage: `url('${product.image}')` }}
                           />
-                          <button className="absolute bottom-2 right-2 md:bottom-3 md:right-3 w-8 h-8 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center text-ink shadow-md md:translate-y-12 md:group-hover:translate-y-0 transition-transform duration-300 hover:bg-[#1a2e29] hover:text-white">
-                              <Plus size={16} className="md:w-5 md:h-5" />
+                          <button 
+                            onClick={(e) => handleAddToCart(e, product.id)}
+                            className={`absolute bottom-2 right-2 md:bottom-3 md:right-3 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center shadow-md md:translate-y-12 md:group-hover:translate-y-0 transition-all duration-300 ${
+                              addedItems[product.id] 
+                              ? 'bg-[#cfe7a7] text-[#1a2e29]' 
+                              : 'bg-white text-ink hover:bg-[#1a2e29] hover:text-white'
+                            }`}
+                          >
+                              {addedItems[product.id] ? <Check size={16} /> : <Plus size={16} className="md:w-5 md:h-5" />}
                           </button>
                         </div>
 
