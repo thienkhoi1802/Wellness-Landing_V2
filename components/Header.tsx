@@ -40,11 +40,13 @@ const Header: React.FC = () => {
   return (
     <header className="relative h-[100dvh] min-h-[600px] max-h-[1080px] bg-[#0d1211] overflow-hidden text-white selection:bg-brand-green selection:text-ink" id="top">
        {/* Background Image & Gradient managed by CMS */}
+       {/* Removed z-0 to avoid stacking context traps for the edit button */}
        <CmsImage 
           id="hero_bg"
           defaultSrc="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop"
           asBackground={true}
-          className="absolute inset-0 z-0"
+          className="absolute inset-0" 
+          editBtnPosition="top-24 right-6 md:top-32 md:right-12" // Push button down below sticky header
        >
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent pointer-events-none" />
