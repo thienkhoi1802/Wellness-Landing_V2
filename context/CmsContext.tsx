@@ -1,13 +1,18 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 
 interface CmsContextType {
   images: Record<string, string>;
   isEditMode: boolean;
-  isAdmin: boolean; // New: Check if user is admin
+  isAdmin: boolean;
   toggleEditMode: () => void;
   updateImage: (id: string, file: File) => void;
+  resetImage: (id: string) => void;
   getImage: (id: string, defaultSrc: string) => string;
-  logoutAdmin: () => void; // New: Logout function
+  logoutAdmin: () => void;
+  loginAdmin: () => void;
+  registerImage: (id: string, label?: string) => void;
+  unregisterImage: (id: string) => void;
+  registeredImages: string[]; // List of IDs
 }
 
 const CmsContext = createContext<CmsContextType | undefined>(undefined);
@@ -16,6 +21,7 @@ export const CmsProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [images, setImages] = useState<Record<string, string>>({});
   const [isEditMode, setIsEditMode] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [registeredImages, setRegisteredImages] = useState<string[]>([]);
 
   useEffect(() => {
     // 1. Load Images
@@ -29,36 +35,36 @@ export const CmsProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
 
     // 2. Check Admin Status
-    // Check URL for ?admin=true OR Check LocalStorage
     const urlParams = new URLSearchParams(window.location.search);
     const isUrlAdmin = urlParams.get('admin') === 'true';
     const isStoredAdmin = localStorage.getItem('cms_is_admin') === 'true';
 
     if (isUrlAdmin || isStoredAdmin) {
       setIsAdmin(true);
-      // Persist admin status so they don't have to type ?admin=true every time
-      localStorage.setItem('cms_is_admin', 'true');
-      
-      // Optional: Clean URL to hide the param (Purely aesthetic)
-      if (isUrlAdmin) {
-        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-        window.history.pushState({path:newUrl},'',newUrl);
-      }
+      // Auto enable edit mode if admin
+      // setIsEditMode(true); 
     }
   }, []);
 
   const toggleEditMode = () => setIsEditMode(prev => !prev);
 
+  const loginAdmin = () => {
+    setIsAdmin(true);
+    setIsEditMode(true);
+    localStorage.setItem('cms_is_admin', 'true');
+  };
+
   const logoutAdmin = () => {
     setIsAdmin(false);
     setIsEditMode(false);
     localStorage.removeItem('cms_is_admin');
-    window.location.reload(); // Reload to clear state cleanly
+    window.location.reload();
   };
 
   const updateImage = (id: string, file: File) => {
-    if (file.size > 1024 * 1024 * 3) {
-      alert("Image is too large for this local demo (Max 3MB).");
+    // Limit size to prevent LocalStorage crash (Max ~3-5MB usually)
+    if (file.size > 1024 * 1024 * 2) {
+      alert("Please choose an image under 2MB for this local demo.");
       return;
     }
 
@@ -71,7 +77,7 @@ export const CmsProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
           localStorage.setItem('cms_images', JSON.stringify(newImages));
         } catch (e) {
           console.error("Storage full or error", e);
-          alert("Storage full! Image saved in memory only. Clear cache to fix.");
+          alert("Browser storage is full! Image displayed but not saved persistently.");
         }
         return newImages;
       });
@@ -79,12 +85,46 @@ export const CmsProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     reader.readAsDataURL(file);
   };
 
+  const resetImage = (id: string) => {
+    setImages(prev => {
+      const newImages = { ...prev };
+      delete newImages[id];
+      localStorage.setItem('cms_images', JSON.stringify(newImages));
+      return newImages;
+    });
+  };
+
   const getImage = (id: string, defaultSrc: string) => {
     return images[id] || defaultSrc;
   };
 
+  // Registry System
+  const registerImage = useCallback((id: string) => {
+    setRegisteredImages(prev => {
+      if (prev.includes(id)) return prev;
+      return [...prev, id];
+    });
+  }, []);
+
+  const unregisterImage = useCallback((id: string) => {
+    setRegisteredImages(prev => prev.filter(imgId => imgId !== id));
+  }, []);
+
   return (
-    <CmsContext.Provider value={{ images, isEditMode, isAdmin, toggleEditMode, updateImage, getImage, logoutAdmin }}>
+    <CmsContext.Provider value={{ 
+      images, 
+      isEditMode, 
+      isAdmin, 
+      toggleEditMode, 
+      updateImage, 
+      resetImage,
+      getImage, 
+      logoutAdmin, 
+      loginAdmin,
+      registerImage,
+      unregisterImage,
+      registeredImages
+    }}>
       {children}
     </CmsContext.Provider>
   );

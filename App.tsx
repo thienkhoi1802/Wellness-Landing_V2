@@ -10,15 +10,15 @@ import Footer from './components/Footer';
 import ContactModal from './components/ContactModal';
 import ScrollToTop from './components/ScrollToTop';
 import AdminInbox from './components/AdminInbox';
+import AdminDashboard from './components/AdminDashboard';
 import { ContactProvider } from './context/ContactContext';
 import { CmsProvider, useCms } from './context/CmsContext';
-import { Check, Image as ImageIcon, Inbox, LogOut, Shield } from 'lucide-react';
+import { Check, Image as ImageIcon, Inbox, LogOut, Shield, LayoutGrid } from 'lucide-react';
 
 // Floating Admin Controls
-const AdminControls = ({ onOpenInbox }: { onOpenInbox: () => void }) => {
+const AdminControls = ({ onOpenInbox, onOpenDashboard }: { onOpenInbox: () => void, onOpenDashboard: () => void }) => {
   const { isEditMode, toggleEditMode, isAdmin, logoutAdmin } = useCms();
   
-  // If not admin, do not render ANYTHING
   if (!isAdmin) return null;
 
   return (
@@ -31,6 +31,16 @@ const AdminControls = ({ onOpenInbox }: { onOpenInbox: () => void }) => {
            <span className="text-[9px] font-bold text-white uppercase tracking-widest">Admin</span>
         </div>
 
+        {/* Dashboard (Grid) Button */}
+        <button
+          onClick={onOpenDashboard}
+          className="w-12 h-12 md:w-auto md:h-auto md:px-4 md:py-3 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 font-bold text-sm tracking-wide bg-blue-600 text-white hover:bg-blue-700 active:scale-95"
+          title="Open Media Dashboard"
+        >
+          <LayoutGrid size={18} />
+          <span className="hidden md:inline">Media</span>
+        </button>
+
         {/* Inbox Button */}
         <button
           onClick={onOpenInbox}
@@ -41,15 +51,15 @@ const AdminControls = ({ onOpenInbox }: { onOpenInbox: () => void }) => {
           <span className="hidden md:inline">Inbox</span>
         </button>
 
-        {/* CMS Edit Button */}
+        {/* CMS Edit Button (Toggle Overlay) */}
         <button
           onClick={toggleEditMode}
           className={`w-12 h-12 md:w-auto md:h-auto md:px-4 md:py-3 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 font-bold text-sm tracking-wide active:scale-95 ${
             isEditMode 
-              ? 'bg-blue-600 text-white hover:bg-blue-700' 
+              ? 'bg-green-600 text-white hover:bg-green-700' 
               : 'bg-white text-black hover:bg-gray-200'
           }`}
-          title="Toggle Edit Mode"
+          title="Toggle On-Page Edit Mode"
         >
           {isEditMode ? (
             <>
@@ -80,6 +90,7 @@ const AdminControls = ({ onOpenInbox }: { onOpenInbox: () => void }) => {
 
 function App() {
   const [isInboxOpen, setIsInboxOpen] = useState(false);
+  const [isDashboardOpen, setIsDashboardOpen] = useState(false);
 
   return (
     <CmsProvider>
@@ -99,7 +110,12 @@ function App() {
           <ScrollToTop />
           
           <AdminInbox isOpen={isInboxOpen} onClose={() => setIsInboxOpen(false)} />
-          <AdminControls onOpenInbox={() => setIsInboxOpen(true)} />
+          <AdminDashboard isOpen={isDashboardOpen} onClose={() => setIsDashboardOpen(false)} />
+          
+          <AdminControls 
+            onOpenInbox={() => setIsInboxOpen(true)} 
+            onOpenDashboard={() => setIsDashboardOpen(true)} 
+          />
         </div>
       </ContactProvider>
     </CmsProvider>
